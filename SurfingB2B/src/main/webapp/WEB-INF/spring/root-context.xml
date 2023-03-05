@@ -18,7 +18,7 @@
 	<jee:jndi-lookup jndi-name="jdbc/mysql" id="dataSource" resource-ref="true"/>
 	
 	<!-- 트랜잭션 매니저 설정 -->
-	<bean id="dataSourceTransactionManagers"class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="dataSourceTransactionManagers" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
