@@ -1,0 +1,16 @@
+AbstractTextEditor.Color.Background=1,1,1
+AbstractTextEditor.Color.Background.SystemDefault=false
+AbstractTextEditor.Color.FindScope=30,120,155
+AbstractTextEditor.Color.SelectionBackground=27,98,145
+AbstractTextEditor.Color.SelectionBackground.SystemDefault=false
+AbstractTextEditor.Color.SelectionForeground.SystemDefault=false
+SQLEditor.extraPanels.ratio=500-500
+SQLEditor.resultSet.ratio=529-471
+STS4BootMarkerIndicationColor=50,75,23
+currentIPColor=45,45,68
+deletionIndicationColor=224,226,228
+eclipse.preferences.version=1
+overviewRuler_migration=migrated_3.1
+printMarginColor=43,145,175
+searchResultIndicationColor=94,94,94
+spellingEnabled=false
