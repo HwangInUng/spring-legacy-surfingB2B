@@ -20,13 +20,11 @@
     <fullyQualifiedTypeName name="com.edu.surfing.domain.shop.Shop"/>
     <fullyQualifiedTypeName name="org.mybatis.spring.SqlSessionTemplate"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.edu.surfing.model.shop.ShopDAO"/>
     <fullyQualifiedTypeName name="com.edu.surfing.model.shop.ShopImageDAO"/>
     <fullyQualifiedTypeName name="com.edu.surfing.util.FileManager"/>
     <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
-    <fullyQualifiedTypeName name="com.edu.surfing.domain.shop.ShopImage"/>
     <fullyQualifiedTypeName name="com.edu.surfing.model.shop.ShopService"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ExceptionHandler"/>
@@ -36,8 +34,11 @@
     <fullyQualifiedTypeName name="com.edu.surfing.util.Message"/>
     <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
-    <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
     <fullyQualifiedTypeName name="com.edu.surfing.exception.ShopException"/>
     <fullyQualifiedTypeName name="com.edu.surfing.exception.ShopImageException"/>
     <fullyQualifiedTypeName name="com.edu.surfing.exception.UploadException"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.edu.surfing.domain.shop.ShopImage"/>
+    <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
 </qualifiedTypeNameHistroy>

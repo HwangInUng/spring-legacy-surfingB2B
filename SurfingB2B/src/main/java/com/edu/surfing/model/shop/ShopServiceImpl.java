@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.surfing.domain.shop.Shop;
 import com.edu.surfing.domain.shop.ShopImage;
@@ -35,17 +36,21 @@ public class ShopServiceImpl implements ShopService{
 	@Transactional(rollbackFor = {ShopException.class, ShopImageException.class, UploadException.class})
 	@Override
 	public void regist(Shop shop, String savePath) throws ShopException, ShopImageException, UploadException{
-		//파일 저장
-		fileManager.save(shop, savePath);
+		//파일명 가공 및 이미지명 리스트 반환
+		MultipartFile[] files = shop.getImages();
+		List<String> imageNameList = fileManager.save(files, savePath);
 		
 		//매장 저장
 		shopDAO.insert(shop);
 		
 		//매장 이미지 저장
-		List<ShopImage> imageList = shop.getImageList();
-		for(ShopImage image : imageList) {
-			image.setShop(shop);
-			shopImageDAO.insert(image);
+		for(int i = 0; i < imageNameList.size(); i++) {
+			ShopImage shopImage = new ShopImage();
+			String imageName = imageNameList.get(i);
+			shopImage.setImageName(imageName);
+			shopImage.setShop(shop);
+			
+			shopImageDAO.insert(shopImage);
 		}
 	}
 

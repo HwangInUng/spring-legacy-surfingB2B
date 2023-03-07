@@ -1,5 +1,7 @@
 package com.edu.surfing.domain.shop;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 /*
@@ -24,4 +26,6 @@ public class Trainer {
 	private String regdate;
 	private String trainerImage;
 	private Shop shop;
+	
+	private MultipartFile image;
 }
