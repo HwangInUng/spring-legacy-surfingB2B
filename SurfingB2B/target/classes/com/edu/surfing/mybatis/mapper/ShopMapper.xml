@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Shop">
+	<insert id="insert" parameterType="Shop">
+		insert into shop(business_idx, shop_name, shop_call, shop_start, shop_end,
+			shop_area, shop_town, shop_lati, shop_longi) 
+		values(#{businessIdx}, #{shopName}, #{shopCall}, #{shopStart}, #{shopEnd},
+			#{shopArea}, #{shopTown}, #{shopLati}, #{shopLongi})
+		<selectKey keyColumn="shop_idx" keyProperty="shopIdx" order="AFTER" resultType="int">
+			select last_insert_id() as shop_idx
+		</selectKey>
+	</insert>
+</mapper>

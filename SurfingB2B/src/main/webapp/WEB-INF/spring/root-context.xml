@@ -15,29 +15,62 @@
 
 	<!-- DB연동 설정 -->
 	<!-- jndi 설정 -->
-	<jee:jndi-lookup jndi-name="jdbc/mysql" id="dataSource" resource-ref="true"/>
-	
+	<jee:jndi-lookup jndi-name="jdbc/mysql" id="dataSource"
+		resource-ref="true" />
+
 	<!-- 트랜잭션 매니저 설정 -->
-	<bean id="dataSourceTransactionManagers" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
+	<bean id="dataSourceTransactionManagers"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<!-- SqlSessionFactory 설정 -->
-	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
+	<bean id="sqlSessionFactoryBean"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
 		<!-- 참고할 설정파일 -->
-		<property name="configLocation" value="classpath:com/edu/surfing/mybatis/mybatis-config.xml"></property>
+		<property name="configLocation"
+			value="classpath:com/edu/surfing/mybatis/mybatis-config.xml" />
 	</bean>
-	
+
 	<!-- SqlSessionTemplate 설정 -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
 	</bean>
-	
+
 	<!-- 빈 자동스캔 등록 -->
-	<context:component-scan base-package="com.edu.surfing.model"/>
-	
+	<context:component-scan
+		base-package="com.edu.surfing.model" />
+
+	<!-- FileManager 등록 -->
+	<bean id="fileManager" class="com.edu.surfing.util.FileManager" />
+
+	<!-- Multipart객체 등록 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSizePerFile" value="3145728" />
+	</bean>
+
 	<!-- 트랜잭션 적용 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"/>
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"/> 
+		<tx:annotation-driven transaction-manager="transactionManager"/> -->
+
+	<!-- Jackson 컨버터 등록 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list value-type="java.util.ArrayList"> <!-- 자바 자료형에 맞는 컨버터 목록 -->
+				<ref bean="mappingJackson2HttpMessageConverter" /> <!-- 컨버터 ID 등록 -->
+			</list>
+		</property>
+	</bean>
+	<bean id="mappingJackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<!-- 컨텐츠 타입 및 인코딩 처리 -->
+			<value>application/json;charset=utf-8</value>
+		</property>
+	</bean>
 </beans>

@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import com.edu.surfing.domain.Member;
+import com.edu.surfing.domain.member.Member;
 import com.edu.surfing.exception.EmailException;
 
 public class EmailManager {

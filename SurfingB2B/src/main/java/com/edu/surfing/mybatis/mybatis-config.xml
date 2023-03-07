@@ -3,5 +3,60 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+		<!-- 카멜케이스 규칙으로 변환
+			*alias 또는 resultMap을 이용하지 않고, 컬러명 매핑
+		 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
 	
+	<!-- Alias 매핑 -->
+	<typeAliases>
+		<typeAlias type="com.edu.surfing.domain.admin.Admin" alias="Admin"/>
+		<typeAlias type="com.edu.surfing.domain.admin.Advertisement" alias="Advertisement"/>
+		<typeAlias type="com.edu.surfing.domain.board.Board" alias="Board"/>
+		<typeAlias type="com.edu.surfing.domain.board.BoardReview" alias="BoardReview"/>
+		<typeAlias type="com.edu.surfing.domain.business.BusinessMember" alias="BusinessMember"/>
+		<typeAlias type="com.edu.surfing.domain.member.InterestBoard" alias="InterestBoard"/>
+		<typeAlias type="com.edu.surfing.domain.member.InterestShop" alias="InterestShop"/>
+		<typeAlias type="com.edu.surfing.domain.member.InterestSpot" alias="InterestSpot"/>
+		<typeAlias type="com.edu.surfing.domain.member.Member" alias="Member"/>
+		<typeAlias type="com.edu.surfing.domain.menu.Menu" alias="Menu"/>
+		<typeAlias type="com.edu.surfing.domain.admin.Notice" alias="Notice"/>
+		<typeAlias type="com.edu.surfing.domain.reservation.Payment" alias="Payment"/>
+		<typeAlias type="com.edu.surfing.domain.reservation.Refund" alias="Refund"/>
+		<typeAlias type="com.edu.surfing.domain.reservation.Reservation" alias="Reservation"/>
+		<typeAlias type="com.edu.surfing.domain.menu.SelectMenu" alias="SelectMenu"/>
+		<typeAlias type="com.edu.surfing.domain.shop.ShopImage" alias="ShopImage"/>
+		<typeAlias type="com.edu.surfing.domain.shop.Shop" alias="Shop"/>
+		<typeAlias type="com.edu.surfing.domain.business.ShopRegist" alias="ShopRegist"/>
+		<typeAlias type="com.edu.surfing.domain.shop.ShopReview" alias="ShopReview"/>
+		<typeAlias type="com.edu.surfing.domain.admin.SurfingSpot" alias="SurfingSpot"/>
+		<typeAlias type="com.edu.surfing.domain.shop.Trainer" alias="Trainer"/>
+	</typeAliases>
+	
+	<!-- Mapper 매핑 -->
+	<mappers>
+		<mapper resource="com/edu/surfing/mybatis/mapper/AdminMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/AdvertisementMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/BoardMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/BoardReviewMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/BusinessMemberMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/InterestBoardMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/InterestShopMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/InterestSpotMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/MemberMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/MenuMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/NoticeMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/PaymentMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/RefundMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/ReservationMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/SelectMenuMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/ShopImageMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/ShopMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/ShopRegistMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/ShopReviewMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/SurfingSpotMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/TrainerMapper.xml"/>
+	</mappers>
 </configuration>
