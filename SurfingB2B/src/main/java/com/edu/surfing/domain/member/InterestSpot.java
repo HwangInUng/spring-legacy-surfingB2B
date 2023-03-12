@@ -1,6 +1,6 @@
 package com.edu.surfing.domain.member;
 
-import com.edu.surfing.domain.admin.SurfingSpot;
+import com.edu.surfing.domain.main.SurfingSpot;
 
 import lombok.Data;
 

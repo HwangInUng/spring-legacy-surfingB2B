@@ -23,5 +23,4 @@
 	<context:component-scan base-package="com.edu.surfing.client.controller" />
 	
 	
-	
 </beans:beans>

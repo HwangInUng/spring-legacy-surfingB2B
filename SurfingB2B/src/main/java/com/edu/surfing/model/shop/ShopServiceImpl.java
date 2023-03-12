@@ -12,16 +12,16 @@ import com.edu.surfing.domain.shop.ShopImage;
 import com.edu.surfing.exception.ShopException;
 import com.edu.surfing.exception.ShopImageException;
 import com.edu.surfing.exception.UploadException;
-import com.edu.surfing.util.FileManager;
+import com.edu.surfing.model.util.FileManager;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ShopServiceImpl implements ShopService{
-	@Autowired
-	private ShopDAO shopDAO;
-	@Autowired
-	private ShopImageDAO shopImageDAO;
-	@Autowired
-	private FileManager fileManager;
+	private final ShopDAO shopDAO;
+	private final ShopImageDAO shopImageDAO;
+	private final FileManager fileManager;
 	
 	@Override
 	public List getList() {
@@ -38,7 +38,7 @@ public class ShopServiceImpl implements ShopService{
 	public void regist(Shop shop, String savePath) throws ShopException, ShopImageException, UploadException{
 		//파일명 가공 및 이미지명 리스트 반환
 		MultipartFile[] files = shop.getImages();
-		List<String> imageNameList = fileManager.save(files, savePath);
+		List<String> imageNameList = fileManager.getSaveFileName(files, savePath);
 		
 		//매장 저장
 		shopDAO.insert(shop);

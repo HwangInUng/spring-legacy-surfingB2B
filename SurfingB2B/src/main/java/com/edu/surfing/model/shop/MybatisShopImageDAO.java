@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 import com.edu.surfing.domain.shop.ShopImage;
 import com.edu.surfing.exception.ShopImageException;
 
+import lombok.RequiredArgsConstructor;
+
 @Repository
+@RequiredArgsConstructor
 public class MybatisShopImageDAO implements ShopImageDAO {
-	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
+	private final SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
 	public void insert(ShopImage shopImage) throws ShopImageException {

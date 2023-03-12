@@ -19,7 +19,8 @@ import lombok.Data;
 @Data
 public class Menu {
 	private int menuIdx;
-	private Shop shop;
+//	private Shop shop; 차후 객체로 변경
+	private int shopIdx;
 	private String menuName;
 	private int menuPrice;
 	private String menuDesc;

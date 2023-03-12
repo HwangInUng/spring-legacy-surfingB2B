@@ -9,10 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.edu.surfing.domain.shop.Shop;
 import com.edu.surfing.exception.ShopException;
 
+import lombok.RequiredArgsConstructor;
+
 @Repository
+@RequiredArgsConstructor
 public class MybatisShopDAO implements ShopDAO{
-	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
+	private final SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
 	public List<Shop> selectAll() {

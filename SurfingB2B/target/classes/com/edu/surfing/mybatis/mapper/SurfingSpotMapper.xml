@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SurfingSpot">
+	<insert id="insert" parameterType="SurfingSpot">
+		insert into surfing_spot(local_name, town_name, spot_name, spot_lati, spot_longi)
+		values(#{localName}, #{townName}, #{spotName}, #{spotLati}, #{spotLongi})
+	</insert>
+	
+	<select id="selectLocalName" resultType="String">
+		select local_name from surfing_spot group by local_name;
+	</select>
+	
+	<select id="selectTownName" resultType="String" parameterType="String">
+		select town_name from surfing_spot where
+		local_name=#{localName}
+		group by town_name
+	</select>
+	
+	<select id="selectByTown" parameterType="String" resultType="SurfingSpot">
+		select * from surfing_spot where town_name=#{townName} order by spot_name asc
+	</select>
 </mapper>

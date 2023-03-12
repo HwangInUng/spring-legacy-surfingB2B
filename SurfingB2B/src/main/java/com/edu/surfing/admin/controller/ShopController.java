@@ -18,7 +18,7 @@ import com.edu.surfing.exception.ShopException;
 import com.edu.surfing.exception.ShopImageException;
 import com.edu.surfing.exception.UploadException;
 import com.edu.surfing.model.shop.ShopService;
-import com.edu.surfing.util.Message;
+import com.edu.surfing.model.util.Message;
 
 @RestController
 public class ShopController {
@@ -39,19 +39,17 @@ public class ShopController {
 		Message message = new Message();
 		message.setMsg("등록 성공");
 		
-		ResponseEntity<Message> entity = new ResponseEntity<Message>(message, HttpStatus.OK);
 		
 		log.debug("------ 매장등록 성공 ------");
-		return entity;
+		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 	
 	@ExceptionHandler(value = {ShopException.class, ShopImageException.class, UploadException.class})
-	public ResponseEntity<Message> handle(RuntimeException e){
+	public ResponseEntity<Message> handleException(RuntimeException e){
 		Message message = new Message();
 		message.setMsg(e.getMessage());
 		
-		ResponseEntity<Message> entity = new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		
-		return entity;
+		return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

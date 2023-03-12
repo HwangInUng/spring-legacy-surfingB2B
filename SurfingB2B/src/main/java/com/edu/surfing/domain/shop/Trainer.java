@@ -19,13 +19,14 @@ import lombok.Data;
 @Data
 public class Trainer {
 	private int trainerIdx;
+	//나중에 객체로 변경
+	private int shopIdx;
 	private String trainerName;
 	private int trainerCareer;
 	private String trainerType;
 	private String trainerBoard;
 	private String regdate;
 	private String trainerImage;
-	private Shop shop;
 	
-	private MultipartFile image;
+	private MultipartFile profile;
 }

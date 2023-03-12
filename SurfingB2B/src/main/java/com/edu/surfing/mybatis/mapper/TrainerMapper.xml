@@ -3,6 +3,6 @@
 <mapper namespace="Trainer">
 	<insert id="insert" parameterType="Trainer">
 		insert into trainer(trainer_name, trainer_career, trainer_type, trainer_board, trainer_image, shop_idx)
-		values(#{trainerName}, #{trainerCareer}, #{trainerType}, #{trainerBoard}, #{trainerImage}, #{shop.shopIdx})
+		values(#{trainerName}, #{trainerCareer}, #{trainerType}, #{trainerBoard}, #{trainerImage}, #{shopIdx})
 	</insert>
 </mapper>

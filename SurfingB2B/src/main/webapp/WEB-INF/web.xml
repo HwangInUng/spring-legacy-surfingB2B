@@ -52,7 +52,7 @@
 
 	<servlet-mapping>
 		<servlet-name>clientServlet</servlet-name>
-		<url-pattern>/client/*</url-pattern>
+		<url-pattern>/api/client/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- 관리자의 요청을 받을 Servlet -->

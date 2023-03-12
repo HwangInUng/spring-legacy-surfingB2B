@@ -31,7 +31,7 @@
 		<typeAlias type="com.edu.surfing.domain.shop.Shop" alias="Shop"/>
 		<typeAlias type="com.edu.surfing.domain.business.ShopRegist" alias="ShopRegist"/>
 		<typeAlias type="com.edu.surfing.domain.shop.ShopReview" alias="ShopReview"/>
-		<typeAlias type="com.edu.surfing.domain.admin.SurfingSpot" alias="SurfingSpot"/>
+		<typeAlias type="com.edu.surfing.domain.main.SurfingSpot" alias="SurfingSpot"/>
 		<typeAlias type="com.edu.surfing.domain.shop.Trainer" alias="Trainer"/>
 	</typeAliases>
 	
