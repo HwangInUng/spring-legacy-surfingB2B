@@ -14,6 +14,8 @@ public class Weather {
 	 * vec : 풍향
 	 * wsd : 풍속 
 	 */
+	private SurfingSpot surfingSpot;
+	private int weatherIdx;
 	private String day;
 	private String sky;
 	private String pty;
@@ -23,4 +25,5 @@ public class Weather {
 	private String wav;
 	private String vec;
 	private String wsd;
+	private int dayNo;
 }

@@ -21,7 +21,6 @@ public class APIConnector {
 	
 	//날씨 정보 획득 메소드
 	public String getWeatherDate(URL url) throws IOException {
-		
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 		connection.setRequestMethod("GET");
@@ -49,5 +48,44 @@ public class APIConnector {
 		String result = sb.toString();
 		
 		return result;
+	}
+	
+	// 기상청 API의 url을 반환받기 위한 메소드
+	public URL getWeatherURL(SurfingSpot surfingSpot) throws IOException {
+		/* API 요청 URL */
+		String apiUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst";
+		LocalDateTime now = LocalDateTime.now(); // 요청 날짜 변수
+		LocalDateTime minusDay = now.minusDays(1); // 하루 전 날짜 획득
+		String spotLati = surfingSpot.getSpotLati(); // 지역 x좌표
+		String spotLongi = surfingSpot.getSpotLongi(); // 지역 y좌표
+
+		String serviceKey = "Hj3sHhM%2B7wHKs685goGfKOVwhZFflMyigd1Es7cZCVXi4bP06mZR2OG6B7J1%2BbvIwzCPHQUq0xdv6VyhJs9xtQ%3D%3D";
+		String pageNo = "1";
+		String numOfRows = "1000";
+		String dataType = "JSON";
+		String base_date = minusDay.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+		String base_time = "2300";
+		String nx = spotLati.substring(0, spotLati.indexOf("."));
+		log.debug(nx);
+		String ny = spotLongi.substring(0, spotLongi.indexOf("."));
+		log.debug(ny);
+
+		StringBuilder urlBuilder = new StringBuilder(apiUrl);
+		
+		urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + serviceKey);
+		urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode(numOfRows, "UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("dataType", "UTF-8") + "=" + URLEncoder.encode(dataType, "UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("base_date", "UTF-8") + "=" + URLEncoder.encode(base_date, "UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(base_time, "UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("nx", "UTF-8") + "=" + URLEncoder.encode(nx, "UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("ny", "UTF-8") + "=" + URLEncoder.encode(ny, "UTF-8"));
+
+		/*
+		 * 조합완료된 요청 URL 생성 HttpURLConnection 객체 활용 API요청
+		 */
+		URL url = new URL(urlBuilder.toString());
+		
+		return url;
 	}
 }

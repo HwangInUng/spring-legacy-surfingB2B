@@ -33,6 +33,7 @@
 		<typeAlias type="com.edu.surfing.domain.shop.ShopReview" alias="ShopReview"/>
 		<typeAlias type="com.edu.surfing.domain.main.SurfingSpot" alias="SurfingSpot"/>
 		<typeAlias type="com.edu.surfing.domain.shop.Trainer" alias="Trainer"/>
+		<typeAlias type="com.edu.surfing.domain.main.Weather" alias="Weather"/>
 	</typeAliases>
 	
 	<!-- Mapper 매핑 -->
@@ -58,5 +59,6 @@
 		<mapper resource="com/edu/surfing/mybatis/mapper/ShopReviewMapper.xml"/>
 		<mapper resource="com/edu/surfing/mybatis/mapper/SurfingSpotMapper.xml"/>
 		<mapper resource="com/edu/surfing/mybatis/mapper/TrainerMapper.xml"/>
+		<mapper resource="com/edu/surfing/mybatis/mapper/WeatherMapper.xml"/>
 	</mappers>
 </configuration>

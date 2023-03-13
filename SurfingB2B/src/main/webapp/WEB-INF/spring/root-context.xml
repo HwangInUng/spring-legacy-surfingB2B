@@ -4,6 +4,8 @@
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	https://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/jee
@@ -11,7 +13,11 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-3.1.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<!-- DB연동 설정 -->
 	<!-- jndi 설정 -->
@@ -70,4 +76,11 @@
 			<value>application/json;charset=utf-8</value>
 		</property>
 	</bean>
+	
+	
+	<!-- 스케줄러 등록 -->
+	<bean id="schedulerService" class="com.edu.surfing.model.scheduler.SchedulerService"/>
+	<task:scheduler id="gsScheduler" pool-size="10"/>
+	<task:executor id="gsTaskExecutor" pool-size="10"/>
+	<task:annotation-driven executor="gsTaskExecutor" scheduler="gsScheduler"/>		
 </beans>

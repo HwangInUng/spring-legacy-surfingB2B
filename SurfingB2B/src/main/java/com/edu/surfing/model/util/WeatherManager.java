@@ -19,14 +19,14 @@ public class WeatherManager {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	// 단기예보 반환 메소드
-	public List getVilageFcst(String result, LocalDateTime minusDay) {
+	public List getVilageFcst(String result) {
 		// API 반환결과에서 필요데이터 추출
 		JSONObject resultObj = new JSONObject(result);
 		JSONObject response = resultObj.getJSONObject("response");
 		JSONObject body = response.getJSONObject("body");
 		JSONObject items = body.getJSONObject("items");
 		JSONArray itemList = items.getJSONArray("item");
-
+		
 		// 조건에 해당하는 item을 담을 새로운 배열 생성
 		JSONArray selectList = new JSONArray();
 		for (int i = 0; i < itemList.length(); i++) {
@@ -48,9 +48,6 @@ public class WeatherManager {
 				case "TMP":
 					selectList.put(item);
 					break;
-//			case "TMX":
-//				selectList.put(item);
-//				break;
 				case "WAV":
 					selectList.put(item);
 					break;
@@ -68,19 +65,23 @@ public class WeatherManager {
 		Weather tomorrow = new Weather();
 		Weather dayAfter = new Weather();
 		Calendar calendar = Calendar.getInstance();
+		LocalDateTime now = LocalDateTime.now();
 		
 		for(int i = 0; i < selectList.length(); i++) {
 			JSONObject item = selectList.getJSONObject(i);
 			
 			String fcstDate = item.getString("fcstDate");
 			//1~3일 간의 데이터를 추출하기 위해 조건을 통한 분리
-			if(fcstDate.equals(minusDay.plusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
+			if(fcstDate.equals(now.format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
 				putCategoryValue(today, item);
 				today.setDay(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK)));
-			} else if(fcstDate.equals(minusDay.plusDays(2).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
+				today.setDayNo(1);
+			} else if(fcstDate.equals(now.plusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
 				putCategoryValue(tomorrow, item);
-			} else if(fcstDate.equals(minusDay.plusDays(3).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
+				tomorrow.setDayNo(2);
+			} else if(fcstDate.equals(now.plusDays(2).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
 				putCategoryValue(dayAfter, item);
+				dayAfter.setDayNo(3);
 			}
 		}
 		List<Weather> weatherList = new ArrayList();
@@ -109,9 +110,6 @@ public class WeatherManager {
 			weather.setTmp(fcstValue);
 			;
 			break;
-//		case "TMX":
-//			weather.setTmx(fcstValue);;
-//			break;
 		case "WAV":
 			weather.setWav(fcstValue);
 			;

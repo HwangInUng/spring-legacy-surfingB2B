@@ -15,5 +15,5 @@ public interface SurfingSpotService {
 	public void regist(SurfingSpot surfingSpot);
 	public void edit(SurfingSpot surfingSpot);
 	public void remove(int spotIdx);
-	public List<Weather> getWeather(SurfingSpot surfingSpot) throws IOException;
+	public List<Weather> getWeather(SurfingSpot surfingSpot);
 }

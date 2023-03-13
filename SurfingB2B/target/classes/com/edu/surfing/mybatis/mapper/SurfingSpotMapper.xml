@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SurfingSpot">
+	<select id="selectAll" resultType="SurfingSpot">
+		select * from surfing_spot order by spot_idx asc
+	</select>
+
 	<insert id="insert" parameterType="SurfingSpot">
 		insert into surfing_spot(local_name, town_name, spot_name, spot_lati, spot_longi)
 		values(#{localName}, #{townName}, #{spotName}, #{spotLati}, #{spotLongi})

@@ -74,12 +74,16 @@ public class SpotController {
 	}
 	
 	@PostMapping("/weather")
-	public List getWeather(@RequestBody SurfingSpot surfingSpot) throws IOException {
+	public List getWeather(@RequestBody SurfingSpot surfingSpot) {
+		long startTime = System.currentTimeMillis();
 		log.debug("------ " + surfingSpot.getSpotName() + " 날씨조회 요청 ------");
+		log.debug("surfingSpotIDX는? " + surfingSpot.getSpotIdx());
 		
 		List<Weather> weatherList = surfingSpotService.getWeather(surfingSpot);
 		
 		log.debug("------ " + surfingSpot.getSpotName() + " 날씨조회 성공 ------");
+		long endTime = System.currentTimeMillis();
+		log.debug("시간걸린 시간은? " + ((endTime-startTime) / 1000.0) + "초");
 		return weatherList;
 	}
 	

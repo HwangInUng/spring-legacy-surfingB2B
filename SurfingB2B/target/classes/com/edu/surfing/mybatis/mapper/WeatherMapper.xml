@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Weather">
+	<select id="selectListBySpot" resultType="Weather" parameterType="SurfingSpot">
+		select * from weather where spot_idx=#{spotIdx}
+	</select>
+	
+	<!-- spotIdx와 dayNo(예보일자)를 통해 기존데이터 호출 -->
+	<select id="selectBySpot" parameterType="Weather" resultType="Weather">
+		select * from weather where spot_idx=#{surfingSpot.spotIdx} and day_no=#{dayNo}
+	</select>
+
+	<!-- selectBySpot으로 호출한 데이터가 없는경우 -->
+	<insert id="insert" parameterType="Weather">
+		insert into weather(spot_idx, day, sky, pty, tmp, tmn, tmx, wav, vec, wsd, day_no)
+		values(#{surfingSpot.spotIdx}, #{day}, #{sky}, #{pty}, #{tmp}, #{tmn}, #{tmx}, #{wav}, #{vec}, #{wsd}, #{dayNo})
+	</insert>
+	
+	<!-- selectBySpot으로 호출한 데이터가 있는경우 -->
+	<update id="update" parameterType="Weather">
+		update weather set day=#{day}, sky=#{sky}, pty=#{pty}, tmp=#{tmp}, tmn=#{tmn}, tmx=#{tmx},
+		wav=#{wav}, vec=#{vec}, wsd=#{wsd} where spot_idx=#{surfingSpot.spotIdx} and day_no=#{dayNo}
+	</update>
+</mapper>
