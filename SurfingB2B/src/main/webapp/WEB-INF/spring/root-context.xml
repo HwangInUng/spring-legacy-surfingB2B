@@ -76,11 +76,33 @@
 			<value>application/json;charset=utf-8</value>
 		</property>
 	</bean>
-	
-	
+
+
 	<!-- 스케줄러 등록 -->
-	<bean id="schedulerService" class="com.edu.surfing.model.scheduler.SchedulerService"/>
-	<task:scheduler id="gsScheduler" pool-size="10"/>
-	<task:executor id="gsTaskExecutor" pool-size="10"/>
-	<task:annotation-driven executor="gsTaskExecutor" scheduler="gsScheduler"/>		
+	<bean id="schedulerService"
+		class="com.edu.surfing.model.scheduler.SchedulerService" />
+	<task:scheduler id="gsScheduler" pool-size="10" />
+	<task:executor id="gsTaskExecutor" pool-size="10" />
+	<task:annotation-driven
+		executor="gsTaskExecutor" scheduler="gsScheduler" />
+
+	<!-- mail 빈 등록 -->
+	<bean id="javaMailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="ung6860" />
+		<property name="password" value="kvazwnqkaceifhpj" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+			</props>
+		</property>
+	</bean>
 </beans>
