@@ -227,7 +227,10 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.test.int1.Main</mainClass>
+							<mainClass>com.edu.surfing.Main</mainClass>
+							<addClasspath>true</addClasspath>
+							<addExtensions>true</addExtensions>
+							<packageName>com.edu.surfing</packageName>
 						</manifest>
 					</archive>
 				</configuration>
@@ -237,7 +240,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<configuration>
-					<mainClass>org.test.int1.Main</mainClass>
+					<mainClass>com.edu.surfing.Main</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
