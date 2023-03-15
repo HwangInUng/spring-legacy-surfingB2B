@@ -11,8 +11,7 @@
 
 	<!-- ServletContext 로드 시 동작할 리스너 설정 -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
 	<!-- Encoding Filter 설정 -->

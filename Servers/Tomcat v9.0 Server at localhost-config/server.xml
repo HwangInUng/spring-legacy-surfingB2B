@@ -146,7 +146,7 @@
       <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
           <!-- 웹어플리케이션 디렉토리 등록 !(주의) 대소문자 구분을 철저히 해야함-->
            
-      <Context docBase="SurfingB2B" path="/" reloadable="true" source="org.eclipse.jst.jee.server:SurfingB2B"/></Host>
+      <Context docBase="SurfingB2B" path="/surfing" reloadable="true" source="org.eclipse.jst.jee.server:SurfingB2B"/></Host>
 
     </Engine>
   </Service>

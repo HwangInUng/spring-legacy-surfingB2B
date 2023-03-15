@@ -207,6 +207,20 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
+			<!-- jar 플러그인 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>com.edu.surfing.Application</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -219,28 +233,12 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			<!-- no main manifest attribute 해결을 위한 플러그인 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.2</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>com.edu.surfing.Main</mainClass>
-							<addClasspath>true</addClasspath>
-							<addExtensions>true</addExtensions>
-							<packageName>com.edu.surfing</packageName>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<configuration>
-					<mainClass>com.edu.surfing.Main</mainClass>
+					<mainClass>com.edu.surfing.Application</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
