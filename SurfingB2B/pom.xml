@@ -219,6 +219,7 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
+			<!-- no main manifest attribute 해결을 위한 플러그인 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -226,7 +227,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>io.home.test.Test</mainClass>
+							<mainClass>org.test.int1.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
