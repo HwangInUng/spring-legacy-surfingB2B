@@ -1,7 +1,5 @@
 package com.edu.surfing.client.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;

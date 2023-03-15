@@ -3,10 +3,16 @@ package com.edu.surfing.model.scheduler;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.edu.surfing.domain.main.SurfingSpot;
 import com.edu.surfing.domain.main.Weather;
@@ -21,7 +27,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SchedulerService {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-
+	
+	private final HttpSession httpSession;
 	private final SurfingSpotDAO surfingSpotDAO;
 	private final WeatherDAO weatherDAO;
 	private final APIConnector apiConnector;

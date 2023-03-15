@@ -11,13 +11,25 @@
 
 	<!-- ServletContext 로드 시 동작할 리스너 설정 -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<!-- 파일 업로드 경로 설정 -->
+	<context-param>
+		<param-name>savePath</param-name>
+		<param-value>/resources/data/</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.edu.surfing.listener.UploadPathListener
+		</listener-class>
 	</listener>
 
 	<!-- Encoding Filter 설정 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -31,7 +43,8 @@
 	<!-- HiddenHttpMethod Filter 설정 -->
 	<filter>
 		<filter-name>httpMethod</filter-name>
-		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter
+		</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>httpMethod</filter-name>
@@ -41,10 +54,12 @@
 	<!-- 클라이언트의 요청을 받을 Servlet -->
 	<servlet>
 		<servlet-name>clientServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/client-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/client-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -57,10 +72,12 @@
 	<!-- 관리자의 요청을 받을 Servlet -->
 	<servlet>
 		<servlet-name>adminServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/admin-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/admin-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -69,5 +86,10 @@
 		<servlet-name>adminServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<!-- 세션의 만료시간을 지정 -->
+	<session-config>
+		<session-timeout>3</session-timeout>
+	</session-config>
 
 </web-app>

@@ -76,11 +76,13 @@
 			<value>application/json;charset=utf-8</value>
 		</property>
 	</bean>
-
+	
+	<!-- RequestContextListener 등록 -->
+	<bean id="requestContextListener" class="org.springframework.web.context.request.RequestContextListener"/>
 
 	<!-- 스케줄러 등록 -->
 	<bean id="schedulerService"
-		class="com.edu.surfing.model.scheduler.SchedulerService" />
+		class="com.edu.surfing.model.scheduler.SchedulerService"/>
 	<task:scheduler id="gsScheduler" pool-size="10" />
 	<task:executor id="gsTaskExecutor" pool-size="10" />
 	<task:annotation-driven
