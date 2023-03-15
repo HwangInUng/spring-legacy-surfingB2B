@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -35,6 +36,7 @@ public class SchedulerService {
 	private final WeatherManager weatherManager;
 
 	/* 2시간마다 기상청 API로 DB에 등록된 지역의 기상정보를 요청하는 메소드 */
+	@Transactional
 	@Scheduled(cron = "0 0 0/1 * * *")
 	public void registSpotWeather() throws IOException {
 		log.debug("----- 날씨 정보 갱신 요청 ------");

@@ -44,12 +44,4 @@ public class ShopController {
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 	
-	@ExceptionHandler(value = {ShopException.class, ShopImageException.class, UploadException.class})
-	public ResponseEntity<Message> handleException(RuntimeException e){
-		Message message = new Message();
-		message.setMsg(e.getMessage());
-		
-		
-		return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
 }

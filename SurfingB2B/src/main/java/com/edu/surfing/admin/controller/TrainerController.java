@@ -40,12 +40,4 @@ public class TrainerController {
 		log.debug("------ 강사등록 성공 ------");
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
-
-	@ExceptionHandler(value = { TrainerException.class, UploadException.class })
-	public ResponseEntity<Message> handleException(RuntimeException e) {
-		Message message = new Message();
-		message.setMsg(e.getMessage());
-		
-		return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
 }

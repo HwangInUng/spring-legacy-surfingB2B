@@ -40,12 +40,5 @@ public class MenuController {
 		log.debug("------ 상품 등록 성공 ------");
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
-	
-	@ExceptionHandler(value = { MenuException.class, UploadException.class })
-	public ResponseEntity<Message> handleException(RuntimeException e) {
-		Message message = new Message();
-		message.setMsg(e.getMessage());
-		
-		return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+
 }

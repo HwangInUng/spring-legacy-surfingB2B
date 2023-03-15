@@ -85,13 +85,4 @@ public class SpotController {
 		return weatherList;
 	}
 	
-	@ExceptionHandler(SurfingSpotException.class)
-	public ResponseEntity<Message> handleException(SurfingSpotException e){
-		Message message = new Message();
-		message.setMsg(e.getMessage());
-		
-		return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
-	
 }

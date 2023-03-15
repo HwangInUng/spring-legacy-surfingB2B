@@ -66,9 +66,7 @@ public class APIConnector {
 		String base_date = minusDay.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 		String base_time = "2300";
 		String nx = spotLati.substring(0, spotLati.indexOf("."));
-		log.debug(nx);
 		String ny = spotLongi.substring(0, spotLongi.indexOf("."));
-		log.debug(ny);
 
 		StringBuilder urlBuilder = new StringBuilder(apiUrl);
 		

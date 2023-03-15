@@ -14,10 +14,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import com.edu.surfing.domain.member.Member;
 import com.edu.surfing.exception.EmailException;
 
-public class EmailManager {
+import lombok.RequiredArgsConstructor;
 
-	@Autowired
-	private JavaMailSender javaMailSender;
+@RequiredArgsConstructor
+public class EmailManager {
+	private final JavaMailSender javaMailSender;
 
 	// 메일보내기
 	public void send(Member member) throws EmailException {
