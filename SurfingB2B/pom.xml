@@ -6,7 +6,7 @@
 	<groupId>com.edu</groupId>
 	<artifactId>surfing</artifactId>
 	<name>SurfingB2B</name>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.8</java-version>
@@ -207,20 +207,6 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
-			<!-- jar 플러그인 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>com.edu.surfing.Application</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -238,7 +224,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<configuration>
-					<mainClass>com.edu.surfing.Application</mainClass>
+					<mainClass>org.test.Test</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

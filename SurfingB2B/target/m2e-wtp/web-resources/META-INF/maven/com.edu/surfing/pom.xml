@@ -224,7 +224,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<configuration>
-					<mainClass>org.test.int1.Main</mainClass>
+					<mainClass>org.test.Test</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
