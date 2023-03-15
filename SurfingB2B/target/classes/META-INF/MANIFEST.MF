@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: inung
-Build-Jdk: 11.0.11
+Build-Jdk-Spec: 11
+Main-Class: io.home.test.Test
 Created-By: Maven Integration for Eclipse
 
