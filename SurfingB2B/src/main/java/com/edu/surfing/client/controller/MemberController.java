@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.surfing.domain.member.Member;
 import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.model.member.JwtService;
 import com.edu.surfing.model.member.MemberService;
 import com.edu.surfing.model.util.Message;
 
@@ -25,8 +26,9 @@ public class MemberController {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	private final MemberService memberService;
+	private final JwtService jwtService;
 
-	@GetMapping("/member-id")
+	@GetMapping("/join/member-id")
 	public ResponseEntity<Message> checkMemberId(String memberId) {
 		log.debug("------ 아이디 중복체크 요청 ------");
 		
@@ -39,7 +41,7 @@ public class MemberController {
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 	
-	@PostMapping("/member")
+	@PostMapping("/join/member")
 	public ResponseEntity<Message> regist(Member member, HttpServletRequest request){
 		log.debug("------ " + member.getMemberName() + "님 회원가입 요청 ------");
 		String savePath = (String) request.getSession().getServletContext().getAttribute("savePath");
@@ -54,14 +56,17 @@ public class MemberController {
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 	
-	@PostMapping("/user")
-	public ResponseEntity<Member> handleLogin(@RequestBody Member member){
+	@PostMapping("/login/member")
+	public ResponseEntity<String> handleLogin(@RequestBody Member member){
 		log.debug("------ " + member.getMemberId() + "님 로그인 시도 -------");
 		
-		Member user = memberService.getMemberByLogin(member);
+		Member loginMember = memberService.getMemberByLogin(member);
+		
+		String token = jwtService.createToken(loginMember);
+		log.debug(member.getMemberId() + "님에게 발급된 jwt:: " + token);
 		
 		log.debug("------ " + member.getMemberId() + "님 로그인 -------");
-		return new ResponseEntity<Member>(user, HttpStatus.OK);
+		return new ResponseEntity<String>(token, HttpStatus.OK);
 	}
 
 }

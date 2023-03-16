@@ -21,7 +21,25 @@
 	
 	<!-- globalExceptionHandler 객체등록 -->
 	<beans:bean id="globalExceptionHandler" class="com.edu.surfing.exception.GlobalExceptionHandler"/>
+
+	<!-- 생성과 동시에 secretKey 데이터 입력 -->
+	<beans:bean id="jwtService" class="com.edu.surfing.model.member.JwtService">
+		<beans:property name="secretKey">
+			<beans:value>test.jwt.secret</beans:value>
+		</beans:property>
+	</beans:bean>
 	
 	<!-- 빈 자동스캔 설정 : client의 controller만 검색 -->
 	<context:component-scan base-package="com.edu.surfing.client.controller" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/api/cilent/**"/>
+			<!-- 인터셉터 대상에서 제외할 url -->
+			<exclude-mapping path="/api/client/join/**"/>
+			<exclude-mapping path="/api/client/login/**"/>
+			
+			<beans:bean id="jwtInterceptor" class="com.edu.surfing.aop.JwtInterceptor"/>
+		</interceptor>
+	</interceptors>
 </beans:beans>

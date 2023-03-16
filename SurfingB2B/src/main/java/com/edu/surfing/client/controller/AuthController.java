@@ -20,7 +20,7 @@ public class AuthController {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private final AuthService AuthService;
 
-	@GetMapping("/email")
+	@GetMapping("/join/email")
 	public ResponseEntity<Message> sendAuthEmail(String email, HttpSession session) {
 		log.debug("------ " + email + " 이메일 인증 요청 ------");
 
@@ -36,7 +36,7 @@ public class AuthController {
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 
-	@GetMapping("/email-auth")
+	@GetMapping("/join/email-auth")
 	public ResponseEntity<Message> checkEmailCode(String userCode, HttpSession session) {
 		log.debug("------ " + userCode + " 인증번호 확인 요청 ------");
 
@@ -57,7 +57,7 @@ public class AuthController {
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 
-	@GetMapping("/sms")
+	@GetMapping("/join/sms")
 	public ResponseEntity<Message> sendAuthSMS(String phoneNo, HttpSession session) {
 		log.debug("------ " + phoneNo + "로 인증문자 전송 요청 ------");
 
@@ -71,7 +71,7 @@ public class AuthController {
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 
-	@GetMapping("/sms-auth")
+	@GetMapping("/join/sms-auth")
 	public ResponseEntity<Message> checkSmsCode(String userCode, HttpSession session) {
 		log.debug("------ " + userCode + " 인증번호 확인 요청 ------");
 
