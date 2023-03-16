@@ -2,14 +2,12 @@ package com.edu.surfing.model.shop;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.surfing.domain.shop.Trainer;
-import com.edu.surfing.exception.TrainerException;
-import com.edu.surfing.exception.UploadException;
+import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.model.util.FileManager;
 
 import lombok.RequiredArgsConstructor;
@@ -30,9 +28,9 @@ public class TrainerServiceImpl implements TrainerService {
 		return trainerDAO.selectById(trainerIdx);
 	}
 
-	@Transactional(rollbackFor = {TrainerException.class, UploadException.class})
+	@Transactional
 	@Override
-	public void regist(Trainer trainer, String savePath) throws TrainerException, UploadException {
+	public void regist(Trainer trainer, String savePath) throws CustomException {
 		//파일추출
 		MultipartFile file = trainer.getProfile();
 		
@@ -45,12 +43,12 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public void edit(Trainer trainer) throws TrainerException {
+	public void edit(Trainer trainer) throws CustomException {
 
 	}
 
 	@Override
-	public void remove(int trainerIdx) throws TrainerException {
+	public void remove(int trainerIdx) throws CustomException {
 
 	}
 

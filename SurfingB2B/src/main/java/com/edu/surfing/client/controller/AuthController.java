@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edu.surfing.model.util.AuthService;
+import com.edu.surfing.model.member.AuthService;
 import com.edu.surfing.model.util.Message;
 
 import lombok.RequiredArgsConstructor;

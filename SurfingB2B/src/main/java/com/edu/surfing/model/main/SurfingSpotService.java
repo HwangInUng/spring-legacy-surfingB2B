@@ -1,6 +1,5 @@
 package com.edu.surfing.model.main;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.edu.surfing.domain.main.SurfingSpot;

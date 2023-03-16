@@ -9,14 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.surfing.domain.shop.Shop;
-import com.edu.surfing.exception.ShopException;
-import com.edu.surfing.exception.ShopImageException;
-import com.edu.surfing.exception.UploadException;
 import com.edu.surfing.model.shop.ShopService;
 import com.edu.surfing.model.util.Message;
 

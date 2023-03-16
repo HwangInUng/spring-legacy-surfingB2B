@@ -6,7 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.edu.surfing.domain.main.SurfingSpot;
-import com.edu.surfing.exception.SurfingSpotException;
+import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.exception.ErrorCode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,26 +42,26 @@ public class MybatisSurfingSpotDAO implements SurfingSpotDAO {
 	}
 
 	@Override
-	public void insert(SurfingSpot surfingSpot) throws SurfingSpotException {
+	public void insert(SurfingSpot surfingSpot) throws CustomException {
 		int result = sqlSessionTemplate.insert("SurfingSpot.insert", surfingSpot);
 		if(result < 1) {
-			throw new SurfingSpotException("지역등록 실패");
+			throw new CustomException(ErrorCode.FAILED_REGIST, "지역");
 		}
 	}
 
 	@Override
-	public void update(SurfingSpot surfingSpot) throws SurfingSpotException {
+	public void update(SurfingSpot surfingSpot) throws CustomException {
 		int result = sqlSessionTemplate.update("SurfingSpot.update", surfingSpot);
 		if(result < 1) {
-			throw new SurfingSpotException("지역수정 실패");
+			throw new CustomException(ErrorCode.FAILED_UPDATE, "지역");
 		}
 	}
 
 	@Override
-	public void delete(int spotIdx) throws SurfingSpotException {
+	public void delete(int spotIdx) throws CustomException {
 		int result = sqlSessionTemplate.delete("SurfingSpot.delete", spotIdx);
 		if(result < 1) {
-			throw new SurfingSpotException("지역삭제 실패");
+			throw new CustomException(ErrorCode.NOT_FOUND_DELETE);
 		}
 
 	}

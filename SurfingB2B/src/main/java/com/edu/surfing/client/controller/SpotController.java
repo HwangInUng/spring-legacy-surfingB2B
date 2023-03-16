@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.surfing.domain.main.SurfingSpot;
 import com.edu.surfing.domain.main.Weather;
-import com.edu.surfing.exception.SurfingSpotException;
+import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.model.main.SurfingSpotService;
 import com.edu.surfing.model.util.Message;
 
@@ -27,7 +26,7 @@ public class SpotController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	private final SurfingSpotService surfingSpotService;
 	
-	@Transactional(rollbackFor = SurfingSpotException.class)
+	@Transactional(rollbackFor = CustomException.class)
 	@PostMapping("/spot")
 	public ResponseEntity<Message> regist(@RequestBody List<SurfingSpot> surfingSpotList){
 		log.debug("------ 지역 등록 요청 ------");

@@ -6,7 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.edu.surfing.domain.menu.Menu;
-import com.edu.surfing.exception.MenuException;
+import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.exception.ErrorCode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,34 +27,34 @@ public class MybatisMenuDAO implements MenuDAO {
 	}
 
 	@Override
-	public void insert(Menu menu) throws MenuException {
+	public void insert(Menu menu) throws CustomException {
 		int result = sqlSessionTemplate.insert("Menu.insert", menu);
 		if(result < 1) {
-			throw new MenuException("상품 등록 실패");
+			throw new CustomException(ErrorCode.FAILED_REGIST, "메뉴");
 		}
 	}
 
 	@Override
-	public void update(Menu menu) throws MenuException {
+	public void update(Menu menu) throws CustomException {
 		int result = sqlSessionTemplate.update("Menu.update", menu);
 		if(result < 1) {
-			throw new MenuException("상품 수정 실패");
+			throw new CustomException(ErrorCode.FAILED_UPDATE, "메뉴");
 		}
 	}
 
 	@Override
-	public void delete(int menu_idx) throws MenuException {
+	public void delete(int menu_idx) throws CustomException {
 		int result = sqlSessionTemplate.update("Menu.delete", menu_idx);
 		if(result < 1) {
-			throw new MenuException("상품 삭제 실패");
+			throw new CustomException(ErrorCode.NOT_FOUND_DELETE);
 		}
 	}
 
 	@Override
-	public void deleteByShop(int shop_idx) throws MenuException {
+	public void deleteByShop(int shop_idx) throws CustomException {
 		int result = sqlSessionTemplate.update("Menu.deleteByShop", shop_idx);
 		if(result < 1) {
-			throw new MenuException("해당샵의 상품 삭제 실패");
+			throw new CustomException(ErrorCode.NOT_FOUND_DELETE);
 		}
 	}
 

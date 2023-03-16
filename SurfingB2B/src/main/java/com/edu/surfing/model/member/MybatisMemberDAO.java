@@ -6,7 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.edu.surfing.domain.member.Member;
-import com.edu.surfing.exception.MemberException;
+import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.exception.ErrorCode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,36 +27,44 @@ public class MybatisMemberDAO implements MemberDAO{
 	}
 
 	@Override
-	public Member selectById(String memberId) {
-		return sqlSessionTemplate.selectOne("Member.selectById", memberId);
+	public Member selectById(String memberId) throws CustomException {
+		Member member = sqlSessionTemplate.selectOne("Member.selectById", memberId);
+		if(member != null) {
+			throw new CustomException(ErrorCode.DUPLICATION_ID);
+		}
+		return member;
 	}
 
 	@Override
-	public Member selectByLogin(Member member) {
-		return sqlSessionTemplate.selectOne("Member.selectByLogin", member);
+	public Member selectByLogin(Member member) throws CustomException {
+		Member user = sqlSessionTemplate.selectOne("Member.selectByLogin", member);
+		if(user == null) {
+			throw new CustomException(ErrorCode.MISMATCH_LOGIN_INFO);
+		}
+		return user;
 	}
 
 	@Override
-	public void insert(Member member) throws MemberException {
+	public void insert(Member member) throws CustomException {
 		int result = sqlSessionTemplate.insert("Member.insert", member);
 		if(result < 1) {
-			throw new MemberException("회원가입 실패. 입력된 정보를 다시 확인해주세요.");
+			throw new CustomException(ErrorCode.FAILED_REGIST, "회원");
 		}
 	}
 
 	@Override
-	public void update(Member member) throws MemberException {
+	public void update(Member member) throws CustomException {
 		int result = sqlSessionTemplate.update("Member.update", member);
 		if(result < 1) {
-			throw new MemberException("프로필 수정 실패. 정보를 다시 확인해주세요.");
+			throw new CustomException(ErrorCode.FAILED_UPDATE, "회원");
 		}
 	}
 
 	@Override
-	public void delete(int memberIdx) throws MemberException {
+	public void delete(int memberIdx) throws CustomException {
 		int result = sqlSessionTemplate.delete("Member.delete", memberIdx);
 		if(result < 1) {
-			throw new MemberException("삭제 실패. 다시 시도해주세요.");
+			throw new CustomException(ErrorCode.NOT_FOUND_DELETE);
 		}
 	}
 

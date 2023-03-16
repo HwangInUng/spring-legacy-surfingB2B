@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.edu.surfing.domain.main.SurfingSpot;
 import com.edu.surfing.domain.main.Weather;
-import com.edu.surfing.exception.SurfingSpotException;
+import com.edu.surfing.exception.CustomException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,17 +42,17 @@ public class SurfingSpotServiceImpl implements SurfingSpotService {
 	}
 
 	@Override
-	public void regist(SurfingSpot surfingSpot) throws SurfingSpotException {
+	public void regist(SurfingSpot surfingSpot) throws CustomException {
 		surfingSpotDAO.insert(surfingSpot);
 	}
 
 	@Override
-	public void edit(SurfingSpot surfingSpot) throws SurfingSpotException {
+	public void edit(SurfingSpot surfingSpot) throws CustomException {
 		surfingSpotDAO.update(surfingSpot);
 	}
 
 	@Override
-	public void remove(int spotIdx) throws SurfingSpotException {
+	public void remove(int spotIdx) throws CustomException {
 		surfingSpotDAO.delete(spotIdx);
 	}
 

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.edu.surfing.domain.member.Member;
-import com.edu.surfing.exception.MemberException;
-import com.edu.surfing.exception.UploadException;
+import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.exception.ErrorCode;
 import com.edu.surfing.model.util.FileManager;
 import com.edu.surfing.model.util.PasswordConverter;
 
@@ -29,17 +29,21 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member getMemberById(String memberId) {
+	public Member getMemberById(String memberId) throws CustomException {
 		return memberDAO.selectById(memberId);
 	}
 
 	@Override
-	public Member getMemberByLogin(Member member) {
+	public Member getMemberByLogin(Member member) throws CustomException {
+		//로그인 비밀번호 암호화
+		String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
+		member.setMemberPass(memberPass);
+		
 		return memberDAO.selectByLogin(member);
 	}
 
 	@Override
-	public void registMember(Member member, String savePath) throws MemberException, UploadException {
+	public void registMember(Member member, String savePath) throws CustomException {
 		// 비밀번호 암호화
 		String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
 		
@@ -54,12 +58,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void editMember(Member member) throws MemberException {
+	public void editMember(Member member) throws CustomException {
 		memberDAO.update(member);
 	}
 
 	@Override
-	public void removeMember(int memberIdx) throws MemberException {
+	public void removeMember(int memberIdx) throws CustomException {
 		memberDAO.delete(memberIdx);
 	} 
 }

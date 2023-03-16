@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.edu.surfing.domain.main.SurfingSpot;
 import com.edu.surfing.domain.main.Weather;
-import com.edu.surfing.exception.WeatherException;
+import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.exception.ErrorCode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,18 +28,18 @@ public class MybatisWeatherDAO implements WeatherDAO {
 	}
 
 	@Override
-	public void insert(Weather weather) throws WeatherException {
+	public void insert(Weather weather) throws CustomException {
 		int result = sqlSessionTemplate.insert("Weather.insert", weather);
 		if(result < 1) {
-			throw new WeatherException("날씨 정보 등록 실패");
+			throw new CustomException(ErrorCode.INTERNAL_API_ERROR, "기상청");
 		}
 	}
 
 	@Override
-	public void update(Weather weather) throws WeatherException {
+	public void update(Weather weather) throws CustomException {
 		int result = sqlSessionTemplate.update("Weather.update", weather);
 		if(result < 1) {
-			throw new WeatherException("날씨 정보 업데이트 실패");
+			throw new CustomException(ErrorCode.INTERNAL_API_ERROR, "기상청");
 		}
 	}
 

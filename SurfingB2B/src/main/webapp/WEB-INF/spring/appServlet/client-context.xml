@@ -19,6 +19,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- globalExceptionHandler 객체등록 -->
+	<beans:bean id="globalExceptionHandler" class="com.edu.surfing.exception.GlobalExceptionHandler"/>
+	
 	<!-- 빈 자동스캔 설정 : client의 controller만 검색 -->
 	<context:component-scan base-package="com.edu.surfing.client.controller" />
 </beans:beans>

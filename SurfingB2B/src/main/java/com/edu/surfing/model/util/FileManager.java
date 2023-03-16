@@ -10,7 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.surfing.domain.shop.Shop;
 import com.edu.surfing.domain.shop.ShopImage;
-import com.edu.surfing.exception.UploadException;
+import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.exception.ErrorCode;
 
 @Component
 public class FileManager {
@@ -23,7 +24,7 @@ public class FileManager {
 	}
 	
 	//복수 파일을 저장
-	public List getSaveFileName(MultipartFile[] files, String savePath) throws UploadException {
+	public List getSaveFileName(MultipartFile[] files, String savePath) throws CustomException {
 		List<String> imageNameList = new ArrayList(); // 가공된 이미지명을 저장
 
 		try {
@@ -36,14 +37,14 @@ public class FileManager {
 				imageNameList.add(filename); // 가공된 이미지명을 List에 추가
 			}
 		} catch (IllegalStateException | IOException | InterruptedException e) {
-			e.printStackTrace();
-			throw new UploadException("저장 실패", e);
+			/* checked 발생 시 wrapping하여 서비스로 전달 */
+			throw new CustomException(ErrorCode.INTERNAL_FILE_ERROR);
 		}
 		return imageNameList;
 	}
 	
 	//하나의 파일 저장
-	public String getSaveFileName(MultipartFile file, String savePath) throws UploadException {
+	public String getSaveFileName(MultipartFile file, String savePath) throws CustomException {
 		String imageName = null; // 가공된 이미지명을 저장할 변수
 
 		try {
@@ -52,8 +53,7 @@ public class FileManager {
 
 			file.transferTo(new File(savePath + imageName));
 		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-			throw new UploadException("저장 실패", e);
+			throw new CustomException(ErrorCode.INTERNAL_FILE_ERROR);
 		}
 		return imageName;
 	}

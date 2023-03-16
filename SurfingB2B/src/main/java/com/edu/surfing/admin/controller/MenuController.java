@@ -7,13 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.surfing.domain.menu.Menu;
-import com.edu.surfing.exception.MenuException;
-import com.edu.surfing.exception.UploadException;
 import com.edu.surfing.model.menu.MenuService;
 import com.edu.surfing.model.util.Message;
 

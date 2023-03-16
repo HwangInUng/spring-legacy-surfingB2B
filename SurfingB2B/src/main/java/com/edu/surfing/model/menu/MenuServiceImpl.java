@@ -7,8 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.surfing.domain.menu.Menu;
-import com.edu.surfing.exception.MenuException;
-import com.edu.surfing.exception.UploadException;
+import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.model.util.FileManager;
 
 import lombok.RequiredArgsConstructor;
@@ -29,9 +28,9 @@ public class MenuServiceImpl implements MenuService{
 		return menuDAO.selectByShop(shop_idx);
 	}
 
-	@Transactional(rollbackFor = {MenuException.class, UploadException.class})
+	@Transactional
 	@Override
-	public void regist(Menu menu, String savePath) throws MenuException, UploadException {
+	public void regist(Menu menu, String savePath) throws CustomException {
 		//파일 및 경로 추출
 		MultipartFile file = menu.getImage();
 		String imageName = fileManager.getSaveFileName(file, savePath);
@@ -42,17 +41,17 @@ public class MenuServiceImpl implements MenuService{
 	}
 
 	@Override
-	public void edit(Menu menu) throws MenuException {
+	public void edit(Menu menu) throws CustomException {
 		
 	}
 
 	@Override
-	public void remove(int menu_idx) throws MenuException {
+	public void remove(int menu_idx) throws CustomException {
 		
 	}
 
 	@Override
-	public void removeByShop(int shop_idx) throws MenuException {
+	public void removeByShop(int shop_idx) throws CustomException {
 		
 	}
 

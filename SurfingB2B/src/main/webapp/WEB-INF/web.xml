@@ -21,8 +21,7 @@
 		<param-value>/resources/data/</param-value>
 	</context-param>
 	<listener>
-		<listener-class>com.edu.surfing.listener.UploadPathListener
-		</listener-class>
+		<listener-class>com.edu.surfing.listener.UploadPathListener</listener-class>
 	</listener>
 
 	<!-- Encoding Filter 설정 -->

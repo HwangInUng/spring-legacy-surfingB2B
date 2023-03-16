@@ -3,11 +3,11 @@ package com.edu.surfing.model.shop;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.edu.surfing.domain.shop.Shop;
-import com.edu.surfing.exception.ShopException;
+import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.exception.ErrorCode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,20 +27,20 @@ public class MybatisShopDAO implements ShopDAO{
 	}
 
 	@Override
-	public void insert(Shop shop) throws ShopException {
+	public void insert(Shop shop) throws CustomException {
 		int result = sqlSessionTemplate.insert("Shop.insert", shop);
 		if(result < 1) {
-			throw new ShopException("등록 실패");
+			throw new CustomException(ErrorCode.FAILED_REGIST);
 		}
 	}
 
 	@Override
-	public void update(Shop shop) {
+	public void update(Shop shop) throws CustomException {
 		
 	}
 
 	@Override
-	public void delete(int shopIdx) {
+	public void delete(int shopIdx) throws CustomException {
 		
 	}
 	

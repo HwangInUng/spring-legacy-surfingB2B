@@ -25,9 +25,7 @@ public class PasswordConverter {
 				hexString.append(hex);
 			}
 
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return hexString.toString();
