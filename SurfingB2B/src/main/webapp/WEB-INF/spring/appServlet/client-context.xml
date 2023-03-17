@@ -23,7 +23,7 @@
 	<beans:bean id="globalExceptionHandler" class="com.edu.surfing.exception.GlobalExceptionHandler"/>
 
 	<!-- 생성과 동시에 secretKey 데이터 입력 -->
-	<beans:bean id="jwtService" class="com.edu.surfing.model.member.JwtService">
+	<beans:bean id="jwtProvider" class="com.edu.surfing.model.member.JwtProvider">
 		<beans:property name="secretKey">
 			<beans:value>test.jwt.secret</beans:value>
 		</beans:property>

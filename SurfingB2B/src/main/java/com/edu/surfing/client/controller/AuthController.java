@@ -61,7 +61,7 @@ public class AuthController {
 	public ResponseEntity<Message> sendAuthSMS(String phoneNo, HttpSession session) {
 		log.debug("------ " + phoneNo + "로 인증문자 전송 요청 ------");
 
-		int authCode = AuthService.sendMessage("01091716860");
+		int authCode = AuthService.sendMessage(phoneNo);
 		session.setAttribute("smsAuthCode", authCode);
 
 		Message message = new Message();

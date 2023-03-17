@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberServiceImpl implements MemberService {
 	private final MemberDAO memberDAO;
 	private final FileManager fileManager;
+	private final JwtProvider jwtProvider;
 
 	@Override
 	public List getMemberList() {
@@ -34,12 +35,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member getMemberByLogin(Member member) throws CustomException {
+	public String getMemberByLogin(Member member) throws CustomException {
 		//로그인 비밀번호 암호화
 		String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
 		member.setMemberPass(memberPass);
 		
-		return memberDAO.selectByLogin(member);
+		//해당 멤버정보 DB 일치여부 조회
+		Member loginMember = memberDAO.selectByLogin(member);
+		
+		//조건 판단을 통한 토큰 발급
+		if(loginMember != null) {
+			return jwtProvider.createToken(loginMember);
+		} else {
+			throw new CustomException(ErrorCode.MISMATCH_LOGIN_INFO);
+		}
 	}
 
 	@Override

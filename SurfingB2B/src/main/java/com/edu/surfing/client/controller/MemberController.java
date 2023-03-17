@@ -4,20 +4,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.surfing.domain.member.Member;
-import com.edu.surfing.exception.CustomException;
-import com.edu.surfing.model.member.JwtService;
+import com.edu.surfing.model.member.JwtProvider;
 import com.edu.surfing.model.member.MemberService;
 import com.edu.surfing.model.util.Message;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,7 +27,7 @@ public class MemberController {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	private final MemberService memberService;
-	private final JwtService jwtService;
+	private final JwtProvider jwtProvider;
 
 	@GetMapping("/join/member-id")
 	public ResponseEntity<Message> checkMemberId(String memberId) {
@@ -60,13 +61,28 @@ public class MemberController {
 	public ResponseEntity<String> handleLogin(@RequestBody Member member){
 		log.debug("------ " + member.getMemberId() + "님 로그인 시도 -------");
 		
-		Member loginMember = memberService.getMemberByLogin(member);
+		String accessToken = memberService.getMemberByLogin(member);
+		log.debug(member.getMemberId() + "님에게 발급된 jwt:: " + accessToken);
 		
-		String token = jwtService.createToken(loginMember);
-		log.debug(member.getMemberId() + "님에게 발급된 jwt:: " + token);
+		/* 응답 헤더에 jwt를 저장하여 전송
+		 * -'Bearer'는 인증스키마 중 하나
+		 * -서버에서 'Bearer'를 포함하여 전송할 수 있지만 보안상의 이슈가 발생
+		 * -토큰을 가로채어 사용할 수 있음 
+		 */
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("accessToken", accessToken);
 		
 		log.debug("------ " + member.getMemberId() + "님 로그인 -------");
-		return new ResponseEntity<String>(token, HttpStatus.OK);
+		return ResponseEntity.ok().headers(responseHeaders).body("Response tiwh header using ResponseEntity");
+	}
+	
+	@PostMapping("/auth/login/google-member")
+	public ResponseEntity<String> handleGoogleLogin(@RequestBody Member member){
+		log.debug("넘겨받은 회원정보 " + member);
+		
+
+		
+		return null;
 	}
 
 }

@@ -36,12 +36,8 @@ public class MybatisMemberDAO implements MemberDAO{
 	}
 
 	@Override
-	public Member selectByLogin(Member member) throws CustomException {
-		Member user = sqlSessionTemplate.selectOne("Member.selectByLogin", member);
-		if(user == null) {
-			throw new CustomException(ErrorCode.MISMATCH_LOGIN_INFO);
-		}
-		return user;
+	public Member selectByLogin(Member member) {
+		return sqlSessionTemplate.selectOne("Member.selectByLogin", member);
 	}
 
 	@Override

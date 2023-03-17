@@ -26,6 +26,9 @@ public enum ErrorCode {
 	/* 401 : 비인증을 의미하며 요청한 응답을 받기 위해 인증이 필요 */
 
 	/* 403 : 접근권한 미보유, 접근하려는 클라이언트가 미승인으로 서버가 거절 */
+	VALID_TOKEN_SIGNATURE(FORBIDDEN, "유효한 토큰이 아닙니다."),
+	VALID_TOKEN_EXPIRED(FORBIDDEN, "만료된 토큰입니다."),
+	VALID_TOKEN_UNSUPPORTED(FORBIDDEN, "지원되지 않는 토큰입니다."),
 	VALID_MEMBER(FORBIDDEN, "로그인 후 이용가능한 서비스 입니다."),
 	VALID_BUSINESS_MEMBER(FORBIDDEN, "사업자회원만 이용가능한 서비스 입니다."),
 
