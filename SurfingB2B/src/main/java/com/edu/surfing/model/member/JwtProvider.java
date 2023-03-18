@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.edu.surfing.domain.member.Member;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class JwtProvider {
 	/* 서명에 사용할 secretKey 설정은 xml에서 property로 직접등록 */
+	@Value(value = "${secretKey}")
 	private String secretKey;
 
 	/*

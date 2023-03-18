@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.edu.surfing.model.util.FileManager"/>
-    <fullyQualifiedTypeName name="com.edu.surfing.exception.MemberException"/>
     <fullyQualifiedTypeName name="com.edu.surfing.exception.UploadException"/>
     <fullyQualifiedTypeName name="com.edu.surfing.model.member.MemberService"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
@@ -60,4 +58,6 @@
     <fullyQualifiedTypeName name="javax.xml.bind.DatatypeConverter"/>
     <fullyQualifiedTypeName name="io.jsonwebtoken.SignatureAlgorithm"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Value"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 </qualifiedTypeNameHistroy>

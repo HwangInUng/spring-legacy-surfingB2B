@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.surfing.domain.member.Member;
@@ -76,9 +77,9 @@ public class MemberController {
 		return ResponseEntity.ok().headers(responseHeaders).body("Response tiwh header using ResponseEntity");
 	}
 	
-	@PostMapping("/auth/login/google-member")
-	public ResponseEntity<String> handleGoogleLogin(@RequestBody Member member){
-		log.debug("넘겨받은 회원정보 " + member);
+	@GetMapping("/login/oauth/kakao")
+	public ResponseEntity<String> handleGoogleLogin(String code){
+		log.debug("넘겨받은 인증키 " + code);
 		
 
 		

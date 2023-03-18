@@ -21,11 +21,11 @@
 	
 	<!-- globalExceptionHandler 객체등록 -->
 	<beans:bean id="globalExceptionHandler" class="com.edu.surfing.exception.GlobalExceptionHandler"/>
-
+	
 	<!-- 생성과 동시에 secretKey 데이터 입력 -->
 	<beans:bean id="jwtProvider" class="com.edu.surfing.model.member.JwtProvider">
 		<beans:property name="secretKey">
-			<beans:value>test.jwt.secret</beans:value>
+		<beans:value>test.jwt.secretkey</beans:value>
 		</beans:property>
 	</beans:bean>
 	
