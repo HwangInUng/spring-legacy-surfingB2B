@@ -5,6 +5,8 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,18 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Service
+@PropertySource("/WEB-INF/config/api.properties")
 @RequiredArgsConstructor
-public class AuthService {
+public class JoinService {
 	private final JavaMailSenderImpl mailSender;
 	private int authCode; // 인증코드로 사용될 난수 담을 변수
+	
+	@Value("${sms.api_key}")
+	private String api_key;
+	@Value("${sms.api_secret}")
+	private String api_secret;
+	@Value("${sms.from}")
+	private String from;
 
 	// 인증코드생성 메소드
 	public int makeRandomNumber() {
@@ -72,13 +82,10 @@ public class AuthService {
 	public int sendMessage(String phoneNo) throws CustomException {
 		authCode = makeRandomNumber();
 
-		String apiKey = "NCSVK1KULQKSXRNG";
-		String apiSecretKey = "IZMRNSVTLENJKWGDP29GDMH4N3UBQAD2";
 		String domain = "https://api.coolsms.co.kr";
-		String from = "01091716860";
 		String to = phoneNo;
 
-		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, domain);
+		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(api_key, api_secret, domain);
 		
 		Message message = new Message();
 		// 발신 및 수신번호는 '-'을 제외하고 입력

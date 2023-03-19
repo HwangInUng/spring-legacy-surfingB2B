@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import com.edu.surfing.domain.member.Member;
@@ -22,10 +23,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Setter
+@PropertySource("/WEB-INF/config/api.properties")
 @Component
 public class JwtProvider {
 	/* 서명에 사용할 secretKey 설정은 xml에서 property로 직접등록 */
-	@Value(value = "${secretKey}")
+	@Value(value = "${jwt.secret}")
 	private String secretKey;
 
 	/*

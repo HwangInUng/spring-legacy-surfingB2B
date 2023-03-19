@@ -11,7 +11,9 @@ import com.edu.surfing.model.util.FileManager;
 import com.edu.surfing.model.util.PasswordConverter;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -36,15 +38,18 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String getMemberByLogin(Member member) throws CustomException {
+		log.debug("1번 위치");
 		//로그인 비밀번호 암호화
 		String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
 		member.setMemberPass(memberPass);
 		
+		log.debug("2번 위치");
 		//해당 멤버정보 DB 일치여부 조회
 		Member loginMember = memberDAO.selectByLogin(member);
 		
 		//조건 판단을 통한 토큰 발급
 		if(loginMember != null) {
+			log.debug("3번 위치");
 			return jwtProvider.createToken(loginMember);
 		} else {
 			throw new CustomException(ErrorCode.MISMATCH_LOGIN_INFO);
