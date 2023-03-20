@@ -1,4 +1,4 @@
-package com.edu.surfing.model.member;
+package com.edu.surfing.model.oauth;
 
 import java.util.Date;
 
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import com.edu.surfing.domain.member.Member;
 import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.exception.ErrorCode;
 
@@ -33,14 +32,12 @@ public class JwtProvider {
 	/*
 	 * 토큰 생성 메소드 jwt에 저장할 회원정보를 파라미터로 전달
 	 */
-	public String createToken(Member member) {
+	public String createToken(String memberId) {
 		Date now = new Date(System.currentTimeMillis());
 		Long expiration = 1000 * 60 * 60L;
 		
-		log.debug(secretKey);
-		
 		Claims claims = Jwts.claims();
-		claims.put("memberId", member.getMemberId());
+		claims.put("memberId", memberId);
 
 		return Jwts.builder().setHeaderParam("typ", "JWT") // 토큰 타입 지정
 				.setSubject("accessToken") // 토큰 제목

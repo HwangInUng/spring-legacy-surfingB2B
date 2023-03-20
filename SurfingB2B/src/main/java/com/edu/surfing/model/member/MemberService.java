@@ -9,6 +9,7 @@ public interface MemberService {
 	public Member getMemberByIdx(int memberIdx);
 	public Member getMemberById(String memberId);
 	public String getMemberByLogin(Member member);
+	public String getMemberByOauthLogin(Member member);
 	public void registMember(Member member, String savePath);
 	public void editMember(Member member);
 	public void removeMember(int memberIdx);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.edu.surfing.domain.member.Member;
 import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.exception.ErrorCode;
+import com.edu.surfing.model.oauth.JwtProvider;
 import com.edu.surfing.model.util.FileManager;
 import com.edu.surfing.model.util.PasswordConverter;
 
@@ -50,10 +51,15 @@ public class MemberServiceImpl implements MemberService {
 		//조건 판단을 통한 토큰 발급
 		if(loginMember != null) {
 			log.debug("3번 위치");
-			return jwtProvider.createToken(loginMember);
+			return jwtProvider.createToken(loginMember.getMemberId());
 		} else {
 			throw new CustomException(ErrorCode.MISMATCH_LOGIN_INFO);
 		}
+	}
+	
+	@Override
+	public String getMemberByOauthLogin(Member member) {
+		return null;
 	}
 
 	@Override

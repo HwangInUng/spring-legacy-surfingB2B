@@ -19,7 +19,7 @@ import lombok.Data;
  */
 
 @Data
-public class Member {
+public class Member{
 	private int memberIdx;
 	private String memberId;
 	private String memberPass;

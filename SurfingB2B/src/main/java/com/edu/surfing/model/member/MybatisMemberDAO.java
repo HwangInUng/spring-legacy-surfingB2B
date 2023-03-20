@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.edu.surfing.domain.member.Member;
+import com.edu.surfing.domain.oauth.KakaoMember;
+import com.edu.surfing.domain.oauth.OauthMember;
 import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.exception.ErrorCode;
 
@@ -38,6 +40,11 @@ public class MybatisMemberDAO implements MemberDAO{
 	@Override
 	public Member selectByLogin(Member member) {
 		return sqlSessionTemplate.selectOne("Member.selectByLogin", member);
+	}
+	
+	@Override
+	public Member selectByOauthLogin(Member member) {
+		return sqlSessionTemplate.selectOne("Member.selectByOauthLogin", member);
 	}
 
 	@Override

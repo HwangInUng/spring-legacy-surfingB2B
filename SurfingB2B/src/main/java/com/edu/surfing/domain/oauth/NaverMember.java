@@ -7,39 +7,33 @@ import lombok.Getter;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class KakaoMember implements OauthMember{
+public class NaverMember implements OauthMember{
 	
-	@JsonProperty("kakao_account")
-	private KakaoAccount kakao_account; // response와 데이터 매핑을 위한 _사용
+	@JsonProperty("response")
+	private Response response; // response와 데이터 매핑을 위한 _사용
 	
 	//데이터 반환값을 받을 내장클래스
 	//필요한 값만 추출하기 위해서 @JsonIgnoreProperties 사용
 	@Getter
 	@JsonIgnoreProperties(ignoreUnknown = true)
-	public class KakaoAccount{
-		private Profile profile;
+	public class Response{
 		private String email;
-		
-		@Getter
-		@JsonIgnoreProperties(ignoreUnknown = true)
-		public class Profile{
-			private String nickname;
-		}
+		private String name;
 	}
 
 	@Override
 	public String getEmail() {
-		return kakao_account.getEmail();
+		return response.email;
 	}
 
 	@Override
 	public String getNickName() {
-		return kakao_account.getProfile().getNickname();
+		return response.name;
 	}
 
 	@Override
 	public OauthProvider getOauthProvider() {
-		return OauthProvider.KAKAO;
+		return OauthProvider.NAVER;
 	}
 	
 }

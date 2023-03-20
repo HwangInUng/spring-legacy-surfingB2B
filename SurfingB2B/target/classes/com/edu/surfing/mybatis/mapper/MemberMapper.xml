@@ -16,6 +16,12 @@
 		select * from member where member_id=#{memberId} and
 		member_pass=#{memberPass}
 	</select>
+	
+	<select id="selectByOauthLogin" resultType="Member"
+		parameterType="Member">
+		select * from member where member_id=#{memberId} and
+		member_name=#{memberName}
+	</select>
 
 	<insert id="insert" parameterType="Member">
 		insert into member(
