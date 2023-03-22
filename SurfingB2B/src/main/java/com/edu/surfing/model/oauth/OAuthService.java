@@ -51,7 +51,7 @@ public class OAuthService {
 		}
 		// 이미 가입된 회원은 토큰발급
 		log.debug("------ JWT 발급 ------");
-		accessJwt = jwtProvider.createToken(accessMember.getMemberId());
+		accessJwt = jwtProvider.createToken(accessMember);
 
 		log.debug("------ JWT 발급완료 ------");
 		return accessJwt;

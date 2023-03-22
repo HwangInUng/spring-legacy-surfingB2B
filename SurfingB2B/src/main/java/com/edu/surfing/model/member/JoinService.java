@@ -28,9 +28,9 @@ public class JoinService {
 	private final JavaMailSenderImpl mailSender;
 	private int authCode; // 인증코드로 사용될 난수 담을 변수
 	
-	@Value("${sms.api_key}")
+	@Value("${sms.api.key}")
 	private String api_key;
-	@Value("${sms.api_secret}")
+	@Value("${sms.api.secret}")
 	private String api_secret;
 	@Value("${sms.from}")
 	private String from;

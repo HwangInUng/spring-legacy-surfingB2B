@@ -94,5 +94,4 @@ public class KakaoClient implements OauthClient{
 		//요청 반환데이터를 메소드 리턴값으로 반환
 		return rt.postForObject(url, infoRequest, KakaoMember.class);
 	}
-	
 }

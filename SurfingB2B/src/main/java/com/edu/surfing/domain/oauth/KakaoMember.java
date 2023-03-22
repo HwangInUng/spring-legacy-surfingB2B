@@ -9,7 +9,7 @@ import lombok.Getter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class KakaoMember implements OauthMember{
 	
-	@JsonProperty("kakao_account")
+	@JsonProperty("kakao_account") // 응답 정보와 동일한 이름의 property 매핑
 	private KakaoAccount kakao_account; // response와 데이터 매핑을 위한 _사용
 	
 	//데이터 반환값을 받을 내장클래스
@@ -29,17 +29,16 @@ public class KakaoMember implements OauthMember{
 
 	@Override
 	public String getEmail() {
-		return kakao_account.getEmail();
+		return kakao_account.email;
 	}
 
 	@Override
 	public String getNickName() {
-		return kakao_account.getProfile().getNickname();
+		return kakao_account.profile.nickname;
 	}
 
 	@Override
 	public OauthProvider getOauthProvider() {
 		return OauthProvider.KAKAO;
 	}
-	
 }

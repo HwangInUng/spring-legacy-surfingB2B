@@ -42,5 +42,8 @@
 			#{phoneNo},
 			#{email},
 			#{profileImage})
+		<selectKey keyColumn="member_idx" keyProperty="memberIdx" order="AFTER" resultType="int">
+			select last_insert_id() as member_idx
+		</selectKey>
 	</insert>
 </mapper>

@@ -124,4 +124,11 @@ public class MemberController {
 		log.debug("------ " + member.getMemberName() + "님 회원가입 성공 ------");
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
+	
+	@GetMapping("/token/my")
+	public ResponseEntity<String> test(HttpServletRequest request){
+		log.debug("controller ::" + request.getAttribute("member"));
+		
+		return ResponseEntity.ok("test");
+	}
 }

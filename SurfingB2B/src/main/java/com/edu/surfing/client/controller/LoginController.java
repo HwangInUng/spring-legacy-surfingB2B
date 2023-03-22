@@ -44,11 +44,11 @@ public class LoginController {
 		return ResponseEntity.ok().headers(responseHeaders).body("Response with header using ResponseEntity");
 	}
 	
-	@GetMapping("/oauth/kakao")
-	public ResponseEntity<String> handleKakaoLogin(String code){
-		log.debug("넘겨받은 Kakao 인증키 :: " + code);
+	@PostMapping("/oauth/kakao")
+	public ResponseEntity<String> handleKakaoLogin(@RequestBody KakaoParams kakaoParams){
+		log.debug("넘겨받은 Kakao 인증키 :: " + kakaoParams.getAuthorizationCode());
 		
-		String accessToken = oauthService.getMemberByOauthLogin(new KakaoParams(code));
+		String accessToken = oauthService.getMemberByOauthLogin(kakaoParams);
 		//응답 헤더 생성
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("accessToken", accessToken);

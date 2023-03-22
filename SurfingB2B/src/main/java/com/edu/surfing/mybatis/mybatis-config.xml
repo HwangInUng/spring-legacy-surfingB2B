@@ -26,7 +26,6 @@
 		<typeAlias type="com.edu.surfing.domain.reservation.Payment" alias="Payment"/>
 		<typeAlias type="com.edu.surfing.domain.reservation.Refund" alias="Refund"/>
 		<typeAlias type="com.edu.surfing.domain.reservation.Reservation" alias="Reservation"/>
-		<typeAlias type="com.edu.surfing.domain.menu.SelectMenu" alias="SelectMenu"/>
 		<typeAlias type="com.edu.surfing.domain.shop.ShopImage" alias="ShopImage"/>
 		<typeAlias type="com.edu.surfing.domain.shop.Shop" alias="Shop"/>
 		<typeAlias type="com.edu.surfing.domain.business.ShopRegist" alias="ShopRegist"/>
@@ -52,7 +51,6 @@
 		<mapper resource="com/edu/surfing/mybatis/mapper/PaymentMapper.xml"/>
 		<mapper resource="com/edu/surfing/mybatis/mapper/RefundMapper.xml"/>
 		<mapper resource="com/edu/surfing/mybatis/mapper/ReservationMapper.xml"/>
-		<mapper resource="com/edu/surfing/mybatis/mapper/SelectMenuMapper.xml"/>
 		<mapper resource="com/edu/surfing/mybatis/mapper/ShopImageMapper.xml"/>
 		<mapper resource="com/edu/surfing/mybatis/mapper/ShopMapper.xml"/>
 		<mapper resource="com/edu/surfing/mybatis/mapper/ShopRegistMapper.xml"/>

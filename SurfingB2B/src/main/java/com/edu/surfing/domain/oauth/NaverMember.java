@@ -9,7 +9,7 @@ import lombok.Getter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NaverMember implements OauthMember{
 	
-	@JsonProperty("response")
+	@JsonProperty("response") // Naver 응답정보 객체명과 동일
 	private Response response; // response와 데이터 매핑을 위한 _사용
 	
 	//데이터 반환값을 받을 내장클래스
@@ -35,5 +35,4 @@ public class NaverMember implements OauthMember{
 	public OauthProvider getOauthProvider() {
 		return OauthProvider.NAVER;
 	}
-	
 }

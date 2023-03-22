@@ -1,7 +1,6 @@
 package com.edu.surfing.domain.reservation;
 
 import com.edu.surfing.domain.member.Member;
-import com.edu.surfing.domain.menu.SelectMenu;
 import com.edu.surfing.domain.shop.Shop;
 import com.edu.surfing.domain.shop.Trainer;
 
@@ -25,10 +24,14 @@ public class Reservation {
 	private int rsvIdx;
 	private Member member;
 	private Trainer trainer;
-	private SelectMenu SelectMenu;
 	private Shop shop;
 	private String rsvDate;
 	private int rsvTime;
 	private String rsvMsg;
 	private String rsvStatus;
+	private String rsvName;
+	private String rsvPhone;
+	
+	// 클라이언트 반환값 전달을 위해 보유
+	private Payment payment;
 }

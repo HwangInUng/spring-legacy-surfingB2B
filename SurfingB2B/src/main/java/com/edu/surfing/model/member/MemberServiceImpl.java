@@ -51,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
 		//조건 판단을 통한 토큰 발급
 		if(loginMember != null) {
 			log.debug("3번 위치");
-			return jwtProvider.createToken(loginMember.getMemberId());
+			return jwtProvider.createToken(loginMember);
 		} else {
 			throw new CustomException(ErrorCode.MISMATCH_LOGIN_INFO);
 		}
