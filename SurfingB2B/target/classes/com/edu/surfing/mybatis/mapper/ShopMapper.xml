@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Shop">
+	<resultMap type="Shop" id="shopMap">
+		<id column="shop_idx" property="shopIdx"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="shop_call" property="shopCall"/>
+		<result column="shop_start" property="shopStart"/>
+		<result column="shop_end" property="shopEnd"/>
+		<result column="shop_area" property="shopArea"/>
+		<result column="shop_town" property="shopTown"/>
+		<result column="shop_lati" property="shopLati"/>
+		<result column="shop_longi" property="shopLongi"/>
+		
+		<collection column="shop_idx" property="trainerList" ofType="Trainer" javaType="java.util.List" select="Trainer.selectByShop"/>
+		<collection column="shop_idx" property="menuList" ofType="Menu" javaType="java.util.List" select="Menu.selectByShop"/>
+	</resultMap>
+
 	<insert id="insert" parameterType="Shop">
 		insert into shop(business_idx, shop_name, shop_call, shop_start, shop_end,
 			shop_area, shop_town, shop_lati, shop_longi) 
@@ -10,4 +25,18 @@
 			select last_insert_id() as shop_idx
 		</selectKey>
 	</insert>
+	
+	<select id="selectAll" resultMap="shopMap">
+		select * from shop order by shop_idx desc; 
+	</select>
+	
+	<select id="selectByBusinessIdx" parameterType="int" resultType="Shop">
+		select * from shop where business_idx=#{businessIdx}
+	</select>
+	
+	<update id="update" parameterType="Shop">
+		update shop set shop_name=#{shopName}, shop_call=#{shopCall}, shop_start=#{shopStart},
+		shop_end=#{shopEnd}, shop_area=#{shopArea}, shop_town=#{shopTown}, shop_lati=#{shopLati},
+		shop_longi=#{shopLongi} where shop_idx=#{shopIdx}
+	</update>
 </mapper>

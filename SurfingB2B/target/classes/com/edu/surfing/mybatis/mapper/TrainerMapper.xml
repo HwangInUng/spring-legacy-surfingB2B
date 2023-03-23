@@ -5,4 +5,16 @@
 		insert into trainer(trainer_name, trainer_career, trainer_type, trainer_board, trainer_image, shop_idx)
 		values(#{trainerName}, #{trainerCareer}, #{trainerType}, #{trainerBoard}, #{trainerImage}, #{shopIdx})
 	</insert>
+	
+	<select id="selectById" parameterType="int" resultType="Trainer">
+		select * from trainer where trainer_idx=#{trainerIdx}
+	</select>
+	
+	<select id="selectByShop" parameterType="int" resultType="Trainer">
+		select * from trainer where shop_idx=#{shopIdx}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from trainer where trainer_idx=#{trainerIdx}
+	</delete>
 </mapper>

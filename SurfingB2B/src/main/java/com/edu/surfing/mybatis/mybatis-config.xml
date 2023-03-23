@@ -21,7 +21,7 @@
 		<typeAlias type="com.edu.surfing.domain.member.InterestShop" alias="InterestShop"/>
 		<typeAlias type="com.edu.surfing.domain.member.InterestSpot" alias="InterestSpot"/>
 		<typeAlias type="com.edu.surfing.domain.member.Member" alias="Member"/>
-		<typeAlias type="com.edu.surfing.domain.menu.Menu" alias="Menu"/>
+		<typeAlias type="com.edu.surfing.domain.shop.Menu" alias="Menu"/>
 		<typeAlias type="com.edu.surfing.domain.admin.Notice" alias="Notice"/>
 		<typeAlias type="com.edu.surfing.domain.reservation.Payment" alias="Payment"/>
 		<typeAlias type="com.edu.surfing.domain.reservation.Refund" alias="Refund"/>

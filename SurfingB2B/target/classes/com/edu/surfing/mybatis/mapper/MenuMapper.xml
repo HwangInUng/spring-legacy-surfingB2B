@@ -3,6 +3,18 @@
 <mapper namespace="Menu">
 	<insert id="insert" parameterType="Menu">
 		insert into menu(menu_name, menu_price, menu_desc, menu_image, shop_idx)
-		values(#{menuName}, #{menuPrice}, #{menuDesc}, #{menuImage}, #{shopIdx})
+		values(#{menuName}, #{menuPrice}, #{menuDesc}, #{menuImage}, #{shop.shopIdx})
 	</insert>
+	
+	<select id="select" parameterType="int" resultType="Menu">
+		select * from menu where menu_idx=#{menuIdx}
+	</select>
+	
+	<select id="selectByShop" parameterType="int" resultType="Menu">
+		select * from menu where shop_idx=#{shopIdx}
+	</select>
+	
+	<delete id="delete">
+		delete from menu where menu_idx=#{menuIdx}
+	</delete>
 </mapper>

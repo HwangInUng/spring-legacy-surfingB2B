@@ -1,11 +1,11 @@
-package com.edu.surfing.model.menu;
+package com.edu.surfing.model.shop;
 
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.edu.surfing.domain.menu.Menu;
+import com.edu.surfing.domain.shop.Menu;
 import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.exception.ErrorCode;
 
@@ -17,13 +17,13 @@ public class MybatisMenuDAO implements MenuDAO {
 	private final SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
-	public List<Menu> selectAll() {
-		return sqlSessionTemplate.selectList("Menu.selectAll");
+	public List<Menu> selectAll(int shopIdx) {
+		return sqlSessionTemplate.selectList("Menu.selectByShop", shopIdx);
 	}
 
 	@Override
-	public Menu selectByShop(int shop_idx) {
-		return sqlSessionTemplate.selectOne("Menu.selectByShop", shop_idx);
+	public Menu select(int menuIdx) {
+		return sqlSessionTemplate.selectOne("Menu.select", menuIdx);
 	}
 
 	@Override
@@ -43,16 +43,16 @@ public class MybatisMenuDAO implements MenuDAO {
 	}
 
 	@Override
-	public void delete(int menu_idx) throws CustomException {
-		int result = sqlSessionTemplate.update("Menu.delete", menu_idx);
+	public void delete(int menuIdx) throws CustomException {
+		int result = sqlSessionTemplate.update("Menu.delete", menuIdx);
 		if(result < 1) {
 			throw new CustomException(ErrorCode.NOT_FOUND_DELETE);
 		}
 	}
 
 	@Override
-	public void deleteByShop(int shop_idx) throws CustomException {
-		int result = sqlSessionTemplate.update("Menu.deleteByShop", shop_idx);
+	public void deleteByShop(int shopIdx) throws CustomException {
+		int result = sqlSessionTemplate.update("Menu.deleteByShop", shopIdx);
 		if(result < 1) {
 			throw new CustomException(ErrorCode.NOT_FOUND_DELETE);
 		}

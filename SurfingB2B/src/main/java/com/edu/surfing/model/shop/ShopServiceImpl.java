@@ -29,6 +29,11 @@ public class ShopServiceImpl implements ShopService {
 	public Shop getDetail(int shopIdx) {
 		return null;
 	}
+	
+	@Override
+	public Shop getDetailByBusiness(int businessIdx) {
+		return shopDAO.selectByBusinessIdx(businessIdx);
+	}
 
 	@Transactional
 	@Override
@@ -53,6 +58,40 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public void edit(Shop shop) throws CustomException {
+		//내용만 수정하기 때문에 별도 로직 불필요
+		shopDAO.update(shop);
+	}
+	
+	@Transactional(rollbackFor = CustomException.class)
+	@Override
+	public void editWithImage(Shop shop, String savePath) throws CustomException {
+		int shopIdx = shop.getShopIdx();
+		
+		/*-------------------------------------------------------------
+		 * 수정할 대상의 기존 이미지 호출
+		 * 호출된 이미지명을 대상으로 경로상 파일 삭제
+		 * 삭제 완료 후 DB 이미지명 삭제
+		 * 모든 작업이 완료되면 update 수행
+		 -------------------------------------------------------------*/
+		List<String> shopImageList = shopImageDAO.selectByShop(shopIdx);
+		
+		if(fileManager.removeImage(shopImageList, savePath)) {
+			//삭제 완료 후 DB 삭제
+			shopImageDAO.deleteByShop(shopIdx);
+			
+			MultipartFile[] files = shop.getImages();
+			//새로 생성된 이미지명 대입
+			shopImageList = fileManager.getSaveFileName(files, savePath);
+			
+			for(String imageName: shopImageList) {
+				ShopImage shopImage = new ShopImage();
+				shopImage.setImageName(imageName);
+				shopImage.setShop(shop);
+				shopImageDAO.insert(shopImage);
+			}
+			
+			shopDAO.update(shop);
+		}
 	}
 
 	@Override

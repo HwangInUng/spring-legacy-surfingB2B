@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ShopImage">
+	<select id="selectByShop" parameterType="int" resultType="String">
+		select image_name from shop_image where shop_idx=#{shopIdx}
+	</select>
+
 	<insert id="insert" parameterType="ShopImage">
 		insert into shop_image(shop_idx, image_name)
 		values(#{shop.shopIdx}, #{imageName})
 	</insert>
+	
+	<delete id="deleteByShop" parameterType="int">
+		delete from shop_image where shop_idx=#{shopIdx}
+	</delete>
 </mapper>

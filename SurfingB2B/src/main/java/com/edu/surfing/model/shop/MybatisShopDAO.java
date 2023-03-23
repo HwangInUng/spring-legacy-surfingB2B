@@ -22,8 +22,13 @@ public class MybatisShopDAO implements ShopDAO{
 	}
 
 	@Override
-	public Shop selectById(int shopIdx) {
+	public Shop selectByIdx(int shopIdx) {
 		return null;
+	}
+	
+	@Override
+	public Shop selectByBusinessIdx(int businessIdx) {
+		return sqlSessionTemplate.selectOne("Shop.selectByBusinessIdx", businessIdx);
 	}
 
 	@Override
@@ -36,7 +41,10 @@ public class MybatisShopDAO implements ShopDAO{
 
 	@Override
 	public void update(Shop shop) throws CustomException {
-		
+		int result = sqlSessionTemplate.update("Shop.update", shop);
+		if(result < 1) {
+			throw new CustomException(ErrorCode.FAILED_UPDATE);
+		}
 	}
 
 	@Override

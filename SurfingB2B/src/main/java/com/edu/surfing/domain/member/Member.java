@@ -2,6 +2,8 @@ package com.edu.surfing.domain.member;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.edu.surfing.domain.business.BusinessMember;
+
 import lombok.Data;
 
 /*
@@ -30,6 +32,8 @@ public class Member{
 	private String email;
 	private String profileImage;
 	private String regdate;
+	private BusinessMember businessMember;
 	
+	//회원 등록 시 사용
 	private MultipartFile image;
 }

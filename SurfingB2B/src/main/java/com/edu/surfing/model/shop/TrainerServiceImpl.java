@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.edu.surfing.domain.shop.Menu;
 import com.edu.surfing.domain.shop.Trainer;
 import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.model.util.FileManager;
@@ -19,13 +20,13 @@ public class TrainerServiceImpl implements TrainerService {
 	private final FileManager fileManager;
 
 	@Override
-	public List<Trainer> getList() {
-		return trainerDAO.selectAll();
+	public List<Trainer> getList(int shopIdx) {
+		return trainerDAO.selectByShop(shopIdx);
 	}
 
 	@Override
 	public Trainer getDetail(int trainerIdx) {
-		return trainerDAO.selectById(trainerIdx);
+		return trainerDAO.select(trainerIdx);
 	}
 
 	@Transactional
@@ -48,8 +49,12 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public void remove(int trainerIdx) throws CustomException {
-
+	public void remove(int trainerIdx, String savePath) throws CustomException {
+		Trainer trainer = trainerDAO.select(trainerIdx);
+		
+		if(fileManager.removeImage(trainer.getTrainerImage(), savePath)) {
+			trainerDAO.delete(trainerIdx);
+		}
 	}
 
 }

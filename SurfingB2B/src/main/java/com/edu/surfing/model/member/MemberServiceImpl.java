@@ -39,29 +39,22 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String getMemberByLogin(Member member) throws CustomException {
-		log.debug("1번 위치");
 		//로그인 비밀번호 암호화
 		String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
 		member.setMemberPass(memberPass);
 		
-		log.debug("2번 위치");
 		//해당 멤버정보 DB 일치여부 조회
 		Member loginMember = memberDAO.selectByLogin(member);
+		log.debug("사업자 회원여부:: " + loginMember.getBusinessMember());
 		
 		//조건 판단을 통한 토큰 발급
 		if(loginMember != null) {
-			log.debug("3번 위치");
 			return jwtProvider.createToken(loginMember);
 		} else {
 			throw new CustomException(ErrorCode.MISMATCH_LOGIN_INFO);
 		}
 	}
 	
-	@Override
-	public String getMemberByOauthLogin(Member member) {
-		return null;
-	}
-
 	@Override
 	public void registMember(Member member, String savePath) throws CustomException {
 		// 비밀번호 암호화

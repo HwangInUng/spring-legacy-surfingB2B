@@ -34,7 +34,12 @@ public class Shop {
 	private String shopTown;
 	private float shopLati;
 	private float shopLongi;
-	private List<ShopImage> imageList; //collection을 이용해 전달받을 List
 	
-	private MultipartFile[] images; //프론트 서버로부터 전달받을 File 배열
+	//collection을 이용해 전달받을 List
+	private List<ShopImage> imageList;
+	private List<Trainer> trainerList;
+	private List<Menu> menuList;
+	
+	//프론트 서버로부터 전달받을 File 배열
+	private MultipartFile[] images;
 }

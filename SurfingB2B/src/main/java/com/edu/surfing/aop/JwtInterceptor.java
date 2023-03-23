@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.surfing.domain.member.Member;
 import com.edu.surfing.exception.CustomException;
+import com.edu.surfing.exception.ErrorCode;
 import com.edu.surfing.model.oauth.JwtProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,22 +29,24 @@ public class JwtInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception, CustomException {
 		String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-		String token = authorization.substring(authorization.indexOf(" ") + 1);
-		
-		System.out.println("interceptor 진입:: " + token);
+		String token = authorization.replaceAll("Bearer ", "");
 
 		// token의 값이 정상적인지 확인
-		if (!StringUtils.isEmpty(token) && jwtProvider.vaildToken(token)) {
-			ObjectMapper objectMapper = new ObjectMapper();
+		if (token != null && token.length() > 10) {
+			log.debug("토큰 상태:: " + token);
 			
-			Claims memberData = jwtProvider.getMemberInfo(token);
-			String member = objectMapper.writeValueAsString(memberData.get("member"));
-			
-			Member accessMember = objectMapper.readValue(member, Member.class);
-			log.debug("interceptor에서 추출한 member :: " + accessMember);
-			
-			request.setAttribute("member", accessMember);
-			return true;
+			if (jwtProvider.vaildToken(token)) {
+				ObjectMapper objectMapper = new ObjectMapper();
+				
+				String member = objectMapper.writeValueAsString(jwtProvider.getMemberInfo(token).get("member"));
+				Member accessMember = objectMapper.readValue(member, Member.class);
+				log.debug("interceptor에서 추출한 member :: " + accessMember);
+
+				request.setAttribute("member", accessMember);
+				return true;
+			}
+		} else {
+			throw new CustomException(ErrorCode.VALID_MEMBER);
 		}
 		return false;
 	}

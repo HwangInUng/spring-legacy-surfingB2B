@@ -18,12 +18,12 @@ public class MybatisTrainerDAO implements TrainerDAO {
 	private final SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
-	public List<Trainer> selectAll() {
-		return sqlSessionTemplate.selectList("Trainer.selectAll");
+	public List<Trainer> selectByShop(int shopIdx) {
+		return sqlSessionTemplate.selectList("Trainer.selectByShop", shopIdx);
 	}
 
 	@Override
-	public Trainer selectById(int trainerIdx) {
+	public Trainer select(int trainerIdx) {
 		return sqlSessionTemplate.selectOne("Trainer.selectById", trainerIdx);
 	}
 
@@ -42,7 +42,10 @@ public class MybatisTrainerDAO implements TrainerDAO {
 
 	@Override
 	public void delete(int trainerIdx) throws CustomException {
-
+		int result = sqlSessionTemplate.delete("Trainer.delete", trainerIdx);
+		if (result < 1) {
+			throw new CustomException(ErrorCode.NOT_FOUND_DELETE);
+		}
 	}
 
 }

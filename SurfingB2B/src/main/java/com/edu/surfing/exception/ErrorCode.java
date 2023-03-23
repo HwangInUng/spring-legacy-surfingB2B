@@ -41,6 +41,7 @@ public enum ErrorCode {
 
 	/* 500 : 서버 내부오류 */
 	INTERNAL_FILE_ERROR(INTERNAL_SERVER_ERROR, "이미지 등록이 실패하였습니다. 다시 시도해주세요."),
+	INTERNAL_FILE_DELETE_ERROR(INTERNAL_SERVER_ERROR, "이미지 삭제가 실패하였습니다. 다시 시도해주세요."),
 	INTERNAL_SEND_ERROR(INTERNAL_SERVER_ERROR, "전송이 실패하였습니다. 다시 시도해주세요."),
 	INTERNAL_API_ERROR(INTERNAL_SERVER_ERROR, "API 요청이 실패하였습니다."),
 	INTERNAL_ERROE(INTERNAL_SERVER_ERROR, "서버 내부오류. 다시 시도해주세요."),

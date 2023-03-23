@@ -1,8 +1,6 @@
-package com.edu.surfing.domain.menu;
+package com.edu.surfing.domain.shop;
 
 import org.springframework.web.multipart.MultipartFile;
-
-import com.edu.surfing.domain.shop.Shop;
 
 import lombok.Data;
 
@@ -19,8 +17,7 @@ import lombok.Data;
 @Data
 public class Menu {
 	private int menuIdx;
-//	private Shop shop; 차후 객체로 변경
-	private int shopIdx;
+	private Shop shop;
 	private String menuName;
 	private int menuPrice;
 	private String menuDesc;

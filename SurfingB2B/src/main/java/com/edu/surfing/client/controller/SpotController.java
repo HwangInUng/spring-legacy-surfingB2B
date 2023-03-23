@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import com.edu.surfing.model.main.SurfingSpotService;
 import com.edu.surfing.model.util.Message;
 
 import lombok.RequiredArgsConstructor;
+import retrofit2.http.Path;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,48 +42,45 @@ public class SpotController {
 		message.setMsg("지역등록 성공");
 		
 		log.debug("------ 지역 등록 성공 ------");
-		return new ResponseEntity<Message>(message, HttpStatus.OK);
+		return ResponseEntity.ok(message);
 	}
 	
 	@GetMapping("/spot-local")
-	public List getLocalList() {
+	public ResponseEntity<List> getLocalList() {
 		log.debug("------ 지역리스트 조회 요청 ------");
 		List<String> localList = surfingSpotService.getLocalList();
 		
 		log.debug("------ 지역리스트" + localList.size() + "건 반환 ------");
-		return localList;
+		return ResponseEntity.ok(localList);
 	}
 	
-	@GetMapping("/spot-town")
-	public List getTownList(String localName) {
+	@GetMapping("/spot-town/{localName}")
+	public ResponseEntity<List> getTownList(@PathVariable String localName) {
 		log.debug("------ 동네리스트 조회 요청 ------");
 		List<String> townList = surfingSpotService.getTownList(localName);
 		
 		log.debug("------ 동네리스트" + townList.size() + "건 반환 ------");
-		return townList;
+		return ResponseEntity.ok(townList);
 	}
 	
-	@GetMapping("/spot")
-	public List getList(String townName) {
+	@GetMapping("/spot/{townName}")
+	public ResponseEntity<List> getList(@PathVariable String townName) {
 		log.debug("------ 스팟리스트 조회 요청 ------");
 		List<SurfingSpot> spotList = surfingSpotService.getList(townName);
 		
 		log.debug("------ 스팟리스트" + spotList.size() + "건 반환 ------");
-		return spotList;
+		return ResponseEntity.ok(spotList);
 	}
 	
 	@PostMapping("/weather")
-	public List getWeather(@RequestBody SurfingSpot surfingSpot) {
+	public ResponseEntity<List> getWeather(@RequestBody SurfingSpot surfingSpot) {
 		long startTime = System.currentTimeMillis();
 		log.debug("------ " + surfingSpot.getSpotName() + " 날씨조회 요청 ------");
-		log.debug("surfingSpotIDX는? " + surfingSpot.getSpotIdx());
 		
 		List<Weather> weatherList = surfingSpotService.getWeather(surfingSpot);
 		
 		log.debug("------ " + surfingSpot.getSpotName() + " 날씨조회 성공 ------");
-		long endTime = System.currentTimeMillis();
-		log.debug("시간걸린 시간은? " + ((endTime-startTime) / 1000.0) + "초");
-		return weatherList;
+		return ResponseEntity.ok(weatherList);
 	}
 	
 }

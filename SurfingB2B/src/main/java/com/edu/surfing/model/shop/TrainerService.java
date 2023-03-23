@@ -5,9 +5,9 @@ import java.util.List;
 import com.edu.surfing.domain.shop.Trainer;
 
 public interface TrainerService {
-	public List<Trainer> getList();
+	public List<Trainer> getList(int shopIdx);
 	public Trainer getDetail(int trainerIdx);
 	public void regist(Trainer trainer, String savePath);
 	public void edit(Trainer trainer);
-	public void remove(int trainerIdx);
+	public void remove(int trainerIdx, String savePath);
 }

@@ -1,4 +1,4 @@
-package com.edu.surfing.model.menu;
+package com.edu.surfing.model.shop;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.edu.surfing.domain.menu.Menu;
+import com.edu.surfing.domain.shop.Menu;
 import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.model.util.FileManager;
 
@@ -19,13 +19,13 @@ public class MenuServiceImpl implements MenuService{
 	private final FileManager fileManager;
 	
 	@Override
-	public List<Menu> getList() {
-		return menuDAO.selectAll();
+	public List<Menu> getList(int shopIdx) {
+		return menuDAO.selectAll(shopIdx);
 	}
 
 	@Override
-	public Menu getDetailByShop(int shop_idx) {
-		return menuDAO.selectByShop(shop_idx);
+	public Menu getDetail(int menuIdx) {
+		return menuDAO.select(menuIdx);
 	}
 
 	@Transactional
@@ -46,12 +46,16 @@ public class MenuServiceImpl implements MenuService{
 	}
 
 	@Override
-	public void remove(int menu_idx) throws CustomException {
+	public void remove(int meunIdx, String savePath) throws CustomException {
+		Menu menu = menuDAO.select(meunIdx);
 		
+		if(fileManager.removeImage(menu.getMenuImage(), savePath)) {
+			menuDAO.delete(meunIdx);
+		}
 	}
 
 	@Override
-	public void removeByShop(int shop_idx) throws CustomException {
+	public void removeByShop(int shopIdx) throws CustomException {
 		
 	}
 
