@@ -32,20 +32,20 @@ public class FileManager {
 	// 복수 파일을 저장
 	public List getSaveFileName(MultipartFile[] files, String savePath) throws CustomException {
 		List<String> imageNameList = new ArrayList(); // 가공된 이미지명을 저장
+		
+			try {
+				for (MultipartFile file : files) {
+					Thread.sleep(10); // 파일명 중복 방지
+					String filename = file.getOriginalFilename();
+					filename = createFilename(filename);
 
-		try {
-			for (MultipartFile file : files) {
-				Thread.sleep(10); // 파일명 중복 방지
-				String filename = file.getOriginalFilename();
-				filename = createFilename(filename);
-
-				file.transferTo(new File(savePath + filename));
-				imageNameList.add(filename); // 가공된 이미지명을 List에 추가
+					file.transferTo(new File(savePath + filename));
+					imageNameList.add(filename); // 가공된 이미지명을 List에 추가
+				}
+			} catch (IllegalStateException | IOException | InterruptedException e) {
+				/* checked 발생 시 wrapping하여 서비스로 전달 */
+				throw new CustomException(ErrorCode.INTERNAL_FILE_ERROR);
 			}
-		} catch (IllegalStateException | IOException | InterruptedException e) {
-			/* checked 발생 시 wrapping하여 서비스로 전달 */
-			throw new CustomException(ErrorCode.INTERNAL_FILE_ERROR);
-		}
 		return imageNameList;
 	}
 

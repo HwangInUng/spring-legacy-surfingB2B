@@ -21,7 +21,7 @@
 
 	<!-- DB연동 설정 -->
 	<!-- jndi 설정 -->
-	<jee:jndi-lookup jndi-name="jdbc/mysql" id="dataSource"
+	<jee:jndi-lookup jndi-name="jdbc/awsmysql" id="dataSource"
 		resource-ref="true" />
 
 	<!-- 트랜잭션 매니저 설정 -->

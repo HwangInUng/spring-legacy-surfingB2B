@@ -20,6 +20,7 @@ import lombok.Data;
  *	-shopTown : 매정 동네(시, 군, 구 단위 구분)
  *	-shopLati : 위도
  *	-shopLongi : 경도
+ *	-shopImage : 대표이미지
  */
 
 @Data
@@ -34,9 +35,10 @@ public class Shop {
 	private String shopTown;
 	private float shopLati;
 	private float shopLongi;
+	private String shopImage;
 	
 	//collection을 이용해 전달받을 List
-	private List<ShopImage> imageList;
+	private List<String> imageList;
 	private List<Trainer> trainerList;
 	private List<Menu> menuList;
 	

@@ -18,12 +18,17 @@ public class MybatisShopDAO implements ShopDAO{
 
 	@Override
 	public List<Shop> selectAll() {
-		return null;
+		return sqlSessionTemplate.selectList("Shop.selectAll");
+	}
+	
+	@Override
+	public List<Shop> selectPopular() {
+		return sqlSessionTemplate.selectList("Shop.selectPopular");
 	}
 
 	@Override
 	public Shop selectByIdx(int shopIdx) {
-		return null;
+		return sqlSessionTemplate.selectOne("Shop.selectByIdx", shopIdx);
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ import com.edu.surfing.model.util.Message;
 import com.sun.mail.iap.Response;
 
 @RestController
-public class ShopController {
+public class AdminShopController {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
@@ -30,7 +30,8 @@ public class ShopController {
 	public ResponseEntity<Message> regist(Shop shop, HttpSession session){
 		log.debug("------ 매장등록 요청 ------");
 		log.debug("넘어온 shop 은? " + shop);
-		String savePath = session.getServletContext().getInitParameter("savePath");
+		ServletContext context = session.getServletContext();
+		String savePath = context.getRealPath(context.getInitParameter("savePath"));
 		
 		shopService.regist(shop, savePath);
 		

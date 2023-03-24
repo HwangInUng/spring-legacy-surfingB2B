@@ -8,6 +8,7 @@ public interface ShopService {
 	public List getList();
 	public Shop getDetail(int shopIdx);
 	public Shop getDetailByBusiness(int businessIdx);
+	public List getPopularShop();
 	public void regist(Shop shop, String savePath);
 	public void edit(Shop shop);
 	public void editWithImage(Shop shop, String savePath);

@@ -39,34 +39,29 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String getMemberByLogin(Member member) throws CustomException {
-		//로그인 비밀번호 암호화
+		// 로그인 비밀번호 암호화
 		String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
 		member.setMemberPass(memberPass);
-		
-		//해당 멤버정보 DB 일치여부 조회
+		log.debug("로그인 시도 :: " + member);
+		// 해당 멤버정보 DB 일치여부 조회
 		Member loginMember = memberDAO.selectByLogin(member);
 		log.debug("사업자 회원여부:: " + loginMember.getBusinessMember());
-		
-		//조건 판단을 통한 토큰 발급
-		if(loginMember != null) {
-			return jwtProvider.createToken(loginMember);
-		} else {
-			throw new CustomException(ErrorCode.MISMATCH_LOGIN_INFO);
-		}
+
+		return jwtProvider.createToken(loginMember);
 	}
-	
+
 	@Override
 	public void registMember(Member member, String savePath) throws CustomException {
 		// 비밀번호 암호화
 		String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
-		
+
 		// 파라미터로 전달받은 바이너리 파일을 이용하여 이미지명 반환
 		String imageName = fileManager.getSaveFileName(member.getImage(), savePath);
-		
+
 		// 이미지 및 비밀번호 세팅
 		member.setProfileImage(imageName);
 		member.setMemberPass(memberPass);
-		
+
 		memberDAO.insert(member);
 	}
 
@@ -78,5 +73,5 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void removeMember(int memberIdx) throws CustomException {
 		memberDAO.delete(memberIdx);
-	} 
+	}
 }

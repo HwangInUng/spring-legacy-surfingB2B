@@ -19,6 +19,7 @@ import lombok.Getter;
 public enum ErrorCode {
 
 	/* 400 : 잘못된 문법으로 인하여 서버가 요청 이해불가 */
+	FAILED_FILE_ERROR(INTERNAL_SERVER_ERROR, "선택된 이미지가 없습니다. 다시 시도해주세요."),
 	MISMATCH_LOGIN_INFO(BAD_REQUEST, "로그인 정보가 올바르지 않습니다."),
 	FAILED_REGIST(BAD_REQUEST, "등록 정보가 올바르지 않습니다."),
 	FAILED_UPDATE(BAD_REQUEST, "수정 정보가 올바르지 않습니다."),

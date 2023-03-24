@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Shop">
+	<!-- 상세페이지 호출 시 사용 -->
 	<resultMap type="Shop" id="shopMap">
 		<id column="shop_idx" property="shopIdx"/>
 		<result column="shop_name" property="shopName"/>
@@ -14,29 +15,44 @@
 		
 		<collection column="shop_idx" property="trainerList" ofType="Trainer" javaType="java.util.List" select="Trainer.selectByShop"/>
 		<collection column="shop_idx" property="menuList" ofType="Menu" javaType="java.util.List" select="Menu.selectByShop"/>
+		<collection column="shop_idx" property="imageList" ofType="String" javaType="java.util.List" select="ShopImage.selectByShop"/>
 	</resultMap>
-
+		
+	<!-- 매장등록 요청 쿼리문 -->
 	<insert id="insert" parameterType="Shop">
 		insert into shop(business_idx, shop_name, shop_call, shop_start, shop_end,
-			shop_area, shop_town, shop_lati, shop_longi) 
+			shop_area, shop_town, shop_lati, shop_longi, shop_image) 
 		values(#{businessIdx}, #{shopName}, #{shopCall}, #{shopStart}, #{shopEnd},
-			#{shopArea}, #{shopTown}, #{shopLati}, #{shopLongi})
+			#{shopArea}, #{shopTown}, #{shopLati}, #{shopLongi}, #{shopImage})
 		<selectKey keyColumn="shop_idx" keyProperty="shopIdx" order="AFTER" resultType="int">
 			select last_insert_id() as shop_idx
 		</selectKey>
 	</insert>
 	
-	<select id="selectAll" resultMap="shopMap">
+	<!-- 전체리스트 요청 쿼리문 -->
+	<select id="selectAll" resultType="Shop">
 		select * from shop order by shop_idx desc; 
 	</select>
 	
+	<!-- 상세보기 요청 쿼리문 -->
+	<select id="selectByIdx" parameterType="int" resultMap="shopMap">
+		select * from shop where shop_idx=#{shopIdx}
+	</select>
+	
+	<!-- 매장관리페이지 요청 쿼리문 -->
 	<select id="selectByBusinessIdx" parameterType="int" resultType="Shop">
 		select * from shop where business_idx=#{businessIdx}
 	</select>
 	
+	<!-- 메인페이지의 인기 서핑샵요청 쿼리문 -->
+	<select id="selectPopular" resultType="Shop">
+		select *, row_number() over(order by shop_idx desc) from shop limit 0, 6
+	</select>
+	
+	<!-- 매장정보 수정 요청 쿼리문 -->
 	<update id="update" parameterType="Shop">
 		update shop set shop_name=#{shopName}, shop_call=#{shopCall}, shop_start=#{shopStart},
 		shop_end=#{shopEnd}, shop_area=#{shopArea}, shop_town=#{shopTown}, shop_lati=#{shopLati},
-		shop_longi=#{shopLongi} where shop_idx=#{shopIdx}
+		shop_longi=#{shopLongi}, shop_image=#{shopImage} where shop_idx=#{shopIdx}
 	</update>
 </mapper>

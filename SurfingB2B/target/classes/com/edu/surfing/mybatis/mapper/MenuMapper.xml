@@ -7,11 +7,11 @@
 	</insert>
 	
 	<select id="select" parameterType="int" resultType="Menu">
-		select * from menu where menu_idx=#{menuIdx}
+		select * from menu where menu_idx=#{menuIdx} order by menu_name asc
 	</select>
 	
 	<select id="selectByShop" parameterType="int" resultType="Menu">
-		select * from menu where shop_idx=#{shopIdx}
+		select * from menu where shop_idx=#{shopIdx} order by menu_name asc
 	</select>
 	
 	<delete id="delete">
