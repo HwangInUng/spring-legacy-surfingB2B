@@ -90,5 +90,13 @@
 	<session-config>
 		<session-timeout>3</session-timeout>
 	</session-config>
+	
+	<!-- Jndi 설정 -->
+	<resource-ref>
+		<description>Mysql Datasource</description>
+		<res-ref-name>jdbc/awsmysql</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 
 </web-app>
