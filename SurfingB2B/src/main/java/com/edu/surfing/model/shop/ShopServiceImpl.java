@@ -49,6 +49,8 @@ public class ShopServiceImpl implements ShopService {
 		if (files.length != 0) {
 			List<String> imageNameList = fileManager.getSaveFileName(files, savePath);
 
+			// 첫번째 이미지는 대표이미지로 등록
+			shop.setShopImage(imageNameList.get(0));
 			// 매장 저장
 			shopDAO.insert(shop);
 
@@ -59,10 +61,6 @@ public class ShopServiceImpl implements ShopService {
 				shopImage.setImageName(imageName);
 				shopImage.setShop(shop);
 
-				// 첫번째 이미지는 대표이미지로 등록
-				if (i == 0) {
-					shop.setShopImage(imageName);
-				}
 
 				shopImageDAO.insert(shopImage);
 			}

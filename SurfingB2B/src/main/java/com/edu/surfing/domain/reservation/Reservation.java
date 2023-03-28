@@ -1,6 +1,5 @@
 package com.edu.surfing.domain.reservation;
 
-import com.edu.surfing.domain.member.Member;
 import com.edu.surfing.domain.shop.Shop;
 import com.edu.surfing.domain.shop.Trainer;
 
@@ -9,7 +8,7 @@ import lombok.Data;
 /*
  *	예약 객체
  *	-rsvIdx : 예약번호 PK
- *	-member : 회원 객체(예약을 신청한 회원)
+ *	-memberIdx : 회원 번호
  *	-trainer : 강사 객체(해당 예약에 선택된 강사)
  *	-selectMenu : 선택된 메뉴 객체(현재 예약에 선택된 상품들의 묶음)
  *	-shop : 서핑샵 객체(해당 예약에 선택된 서핑샵)
@@ -22,7 +21,7 @@ import lombok.Data;
 @Data
 public class Reservation {
 	private int rsvIdx;
-	private Member member;
+	private int memberIdx;
 	private Trainer trainer;
 	private Shop shop;
 	private String rsvDate;

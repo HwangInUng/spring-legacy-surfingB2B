@@ -24,7 +24,7 @@ public class MybatisTrainerDAO implements TrainerDAO {
 
 	@Override
 	public Trainer select(int trainerIdx) {
-		return sqlSessionTemplate.selectOne("Trainer.selectById", trainerIdx);
+		return sqlSessionTemplate.selectOne("Trainer.selectByIdx", trainerIdx);
 	}
 
 	@Override

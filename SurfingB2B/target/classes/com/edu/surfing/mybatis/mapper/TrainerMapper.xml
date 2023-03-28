@@ -6,7 +6,7 @@
 		values(#{trainerName}, #{trainerCareer}, #{trainerType}, #{trainerBoard}, #{trainerImage}, #{shopIdx})
 	</insert>
 	
-	<select id="selectById" parameterType="int" resultType="Trainer">
+	<select id="selectByIdx" parameterType="int" resultType="Trainer">
 		select * from trainer where trainer_idx=#{trainerIdx}
 	</select>
 	

@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Reservation">
+	<resultMap type="Reservation" id="reservMap">
+		<id column="rsv_idx" property="rsvIdx"/>
+		<result column="rsv_date" property="rsvDate"/>
+		<result column="rsv_time" property="rsvTime"/>
+		<result column="rsv_msg" property="rsvMsg"/>
+		<result column="rsv_name" property="rsvName"/>
+		<result column="rsv_phone" property="rsvPhone"/>
+		
+		<association column="shop_idx" property="shop" javaType="Shop" select="Shop.selectByRsv"/>
+		<association column="trainer_idx" property="trainer" javaType="Trainer" select="Trainer.selectByIdx"/>
+	</resultMap>
+	
+	<!-- 예약 전체 조회 -->
+	<select id="selectAll" resultType="Reservation">
+		select * from reservation order by rsv_idx desc
+	</select>
+	
+	<!-- 회원의 예약 조회-->
+	<select id="selectByMember" parameterType="int" resultType="Reservation">
+		select * from reservation where member_idx=#{memberIdx}
+	</select>
+	
+	<!-- 1건의 예약 정보조회 -->
+	<select id="selectByIdx" parameterType="int" resultMap="reservMap">
+		select * from reservation where rsv_idx=#{rsvIdx}
+	</select>
+	
+	<!-- 예약등록 -->
+	<insert id="insert" parameterType="Reservation">
+		insert into reservation(member_idx, rsv_date, rsv_time,
+			rsv_msg, rsv_name, rsv_phone, trainer_idx, shop_idx)
+		values(#{memberIdx}, #{rsvDate}, #{rsvTime}, #{rsvMsg},
+			#{rsvName}, #{rsvPhone}, #{trainer.trainerIdx}, #{shop.shopIdx})
+		<selectKey keyColumn="rsv_idx" keyProperty="rsvIdx" order="AFTER" resultType="int">
+			select last_insert_id() as rsv_idx
+		</selectKey>
+	</insert>
+	
+	<!-- 예약취소 -->
+	<delete id="delete" parameterType="int">
+		delete from reservation where rsv_idx=#{rsvIdx}
+	</delete>
 </mapper>

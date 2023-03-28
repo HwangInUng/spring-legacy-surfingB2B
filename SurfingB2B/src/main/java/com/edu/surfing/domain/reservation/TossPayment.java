@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 
 // API 응답값을 전달할 DTO
-
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TossPayment {

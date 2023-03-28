@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class Payment {
 	private int payIdx;
-	private Reservation reservation;
+	private int rsvIdx;
 	private String payMethod;
 	private String payName;
 	private String payAmount;

@@ -23,12 +23,21 @@
 	<listener>
 		<listener-class>com.edu.surfing.listener.UploadPathListener</listener-class>
 	</listener>
-
+	
+	<!-- CORS 필터 -->
+	<filter>
+		<filter-name>corsFilter</filter-name>
+		<filter-class>com.edu.surfing.filter.SimpleCORSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>corsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- Encoding Filter 설정 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
-		</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>

@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Payment">
+	<!-- 예약과 연관된 결제 조회 -->
+	<select id="selectByReservation" parameterType="int" resultType="Payment">
+		select * from payment where rsv_idx=#{rsvIdx}
+	</select>
+	
+	<!-- 결제내역 등록 -->
+	<insert id="insert" parameterType="Payment">
+		insert into payment(rsv_idx, pay_method, pay_name, pay_approval, pay_amount)
+		values(#{rsvIdx}, #{payMethod}, #{payName}, #{payApproval}, #{payAmount})
+	</insert>
+	
+	<!-- 결제내역 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from payment where pay_idx=#{payIdx}
+	</delete>
 </mapper>

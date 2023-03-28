@@ -26,26 +26,33 @@ import lombok.extern.slf4j.Slf4j;
 public class ReservationController {
 	private final ReservationService reservationService;
 	private final ShopService shopService;
-	
+
 	@GetMapping("/token/reserv")
-	public ResponseEntity<Member> accessReservation(HttpServletRequest request){
+	public ResponseEntity<Member> accessReservation(HttpServletRequest request) {
 		log.debug("------ 예약 페이지 접근 요청 ------");
-		
+
 		Member member = (Member) request.getAttribute("member");
-		
+
 		log.debug("------ 예약 페이지 접근 허용 ------");
 		return ResponseEntity.ok(member);
 	}
-	
+
 	@GetMapping("/token/reserv/{shopIdx}")
-	public ResponseEntity<Shop> getReservationShopInfo(@PathVariable int shopIdx){
+	public ResponseEntity<Shop> getReservationShopInfo(@PathVariable int shopIdx) {
 		log.debug("------ 예약 대상 서핑샵 정보 요청 ------");
 		return ResponseEntity.ok(shopService.getDetail(shopIdx));
 	}
-	
+
 	@PostMapping("/token/reserv")
-	public ResponseEntity<Reservation> registReservation(@RequestBody Reservation reserv){
-		log.debug("------ 예약 및 결제 요청 ------");
-		return null;
+	public ResponseEntity<Reservation> registReservation(@RequestBody Reservation reservation,
+			HttpServletRequest request) {
+		log.debug("------ 예약 등록 요청 ------");
+		
+		//예약등록을 요청한 회원정보 주입
+		Member member = (Member) request.getAttribute("member");
+		reservation.setMemberIdx(member.getMemberIdx());
+		
+		//회원정보와 IDX가 부여된 예약객체 반환
+		return ResponseEntity.ok(reservationService.registReservation(reservation));
 	}
 }

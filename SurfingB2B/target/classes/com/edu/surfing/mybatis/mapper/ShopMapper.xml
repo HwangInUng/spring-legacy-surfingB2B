@@ -39,6 +39,11 @@
 		select * from shop where shop_idx=#{shopIdx}
 	</select>
 	
+	<!-- 예약에 등록된 서핑샵 조회 쿼리문 -->
+	<select id="selectByRsv" parameterType="int" resultType="Shop">
+		select * from shop where shop_idx=#{shopIdx}
+	</select>
+	
 	<!-- 매장관리페이지 요청 쿼리문 -->
 	<select id="selectByBusinessIdx" parameterType="int" resultType="Shop">
 		select * from shop where business_idx=#{businessIdx}

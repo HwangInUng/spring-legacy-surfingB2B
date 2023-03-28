@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.surfing.domain.reservation.PaymentParams;
+import com.edu.surfing.domain.reservation.Reservation;
 import com.edu.surfing.model.reservation.ReservationService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,16 +22,16 @@ public class PaymentController {
 	@GetMapping("/token/payment")
 	public ResponseEntity<String> accessPayment(){
 		log.debug("------ 결제페이지 접근 요청 ------");
-		
 		log.debug("------ 결제페이지 접근 허용 ------");
 		return ResponseEntity.ok("");
 	}
+	
 	@PostMapping("/token/payment")
-	public ResponseEntity<String> handlePayment(@RequestBody PaymentParams paymentParams){
-		log.debug("------ 결제요청 :: " + paymentParams.getPaymentKey());
+	public ResponseEntity<Reservation> handlePayment(@RequestBody PaymentParams paymentParams){
+		log.debug("------ 예약 및 결제요청 :: " + paymentParams.getPaymentKey());
 		
-		reservationService.requestConfirmPayment(paymentParams);
-		
-		return null;
+		Reservation reservation = reservationService.requestConfirmPayment(paymentParams);
+		log.debug("------ 결제완료, 예약정보반환 :: " + reservation.getRsvName());
+		return ResponseEntity.ok(reservation);
 	}
 }

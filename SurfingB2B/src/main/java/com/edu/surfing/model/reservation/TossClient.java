@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.edu.surfing.domain.reservation.Payment;
 import com.edu.surfing.domain.reservation.PaymentParams;
 import com.edu.surfing.domain.reservation.Reservation;
 import com.edu.surfing.domain.reservation.TossPayment;
@@ -25,7 +26,7 @@ public class TossClient {
 	@Value("${toss.secret}")
 	private String toss_secret;
 	
-	public TossPayment getConfirmPayment(PaymentParams paymentParams) {
+	public Payment getConfirmPayment(PaymentParams paymentParams) {
 		String authorization = Base64.getEncoder().encodeToString(toss_secret.getBytes());
 		log.debug("------ API 전송 요청 -------" + authorization);
 		
@@ -43,14 +44,19 @@ public class TossClient {
 		log.debug("응답받은 tossPayment:: " + tossPayment.getOrderName());
 		
 		log.debug("------ API 응답 반환 -------");
-		return tossPayment;
+		return getPaymentInfo(tossPayment, paymentParams);
 	}
 	
-	public Reservation getReservationInfo(TossPayment tossPayment) {
-		log.debug("------- 예약 객체 생성 ------");
+	//결제 승인결과를 매핑한 Payment객체 반환
+	public Payment getPaymentInfo(TossPayment tossPayment, PaymentParams params) {
+		// Empty 객체 생성 및 데이터 세팅
+		Payment payment = new Payment();
+		payment.setRsvIdx(params.getRsvIdx());
+		payment.setPayMethod(tossPayment.getMethod());
+		payment.setPayName(tossPayment.getOrderName());
+		payment.setPayApproval(tossPayment.getCard().getApproveNo());
+		payment.setPayAmount(tossPayment.getTotalAmount());
 		
-		Reservation reservation = new Reservation();
-		
-		return null;
+		return payment;
 	}
 }
