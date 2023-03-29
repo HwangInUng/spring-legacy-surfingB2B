@@ -26,7 +26,8 @@ public class OAuthService {
 
 		// 인증 파라미터 객체를 이용하여 해당 enum클래스에 해당하는 메소드 수행
 		OauthMember oauthMember = requestOauthInfoService.request(oauthParams);
-		log.debug("전달받은 유저정보:: " + oauthMember.getEmail());
+		log.debug("전달받은 유저 이메일:: " + oauthMember.getEmail());
+		log.debug("전달받은 유저 이름:: " + oauthMember.getNickName());
 		
 		// 획득한 회원정보로 검증할 MemberDTO 생성
 		Member accessMember = new Member();
@@ -35,7 +36,8 @@ public class OAuthService {
 
 		// 획득된 회원정보 DB 조회
 		Member result = memberDAO.selectByOauthLogin(accessMember);
-
+		log.debug("회원여부 :: " + result);
+		
 		// 반환할 JWT
 		String accessJwt = null;
 

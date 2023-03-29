@@ -32,16 +32,8 @@ public class LoginController {
 		String accessToken = memberService.getMemberByLogin(member);
 		log.debug(member.getMemberId() + "님에게 발급된 jwt:: " + accessToken);
 		
-		/* 응답 헤더에 jwt를 저장하여 전송
-		 * -'Bearer'는 인증스키마 중 하나
-		 * -서버에서 'Bearer'를 포함하여 전송할 수 있지만 보안상의 이슈가 발생
-		 * -토큰을 가로채어 사용할 수 있음 
-		 */
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("accessToken", accessToken);
-		
 		log.debug("------ " + member.getMemberId() + "님 로그인 -------");
-		return ResponseEntity.ok().headers(responseHeaders).body("Response with header using ResponseEntity");
+		return ResponseEntity.ok(accessToken);
 	}
 	
 	@PostMapping("/oauth/kakao")
@@ -49,11 +41,7 @@ public class LoginController {
 		log.debug("넘겨받은 Kakao 인증키 :: " + kakaoParams.getAuthorizationCode());
 		
 		String accessToken = oauthService.getMemberByOauthLogin(kakaoParams);
-		//응답 헤더 생성
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("accessToken", accessToken);
-		
-		return ResponseEntity.ok().headers(headers).body("Response with header using ResponseEntity");
+		return ResponseEntity.ok(accessToken);
 	}
 	
 	@PostMapping("/oauth/naver")
@@ -61,10 +49,6 @@ public class LoginController {
 		log.debug("넘겨받은 naver 인증키 :: " + naverParams.getAuthorizationCode());
 		
 		String accessToken = oauthService.getMemberByOauthLogin(naverParams);
-		//응답 헤더 생성
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("accessToken", accessToken);
-		
-		return ResponseEntity.ok().headers(headers).body("Response with header using ResponseEntity");
+		return ResponseEntity.ok(accessToken);
 	}
 }

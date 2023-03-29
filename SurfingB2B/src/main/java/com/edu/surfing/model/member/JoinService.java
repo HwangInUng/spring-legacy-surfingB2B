@@ -15,12 +15,14 @@ import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.exception.ErrorCode;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 
+@Slf4j
 @Service
 @PropertySource("/WEB-INF/config/api.properties")
 @RequiredArgsConstructor
@@ -84,18 +86,24 @@ public class JoinService {
 
 		String domain = "https://api.coolsms.co.kr";
 		String to = phoneNo;
+		log.debug("1번" + to);
 
 		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(api_key, api_secret, domain);
 		
+		log.debug("2번" + messageService);
 		Message message = new Message();
 		// 발신 및 수신번호는 '-'을 제외하고 입력
 		message.setFrom(from);
 		message.setTo(to);
 		message.setText("인증번호는 " + authCode + " 확인란에 입력해주세요.");
+		log.debug("3번" + message);
 		
 		try {
+			log.debug("4번");
 			SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
+			log.debug("5번" + response);
 		} catch (Exception e) {
+			e.getStackTrace();
 			throw new CustomException(ErrorCode.INTERNAL_SEND_ERROR, "문자");
 		}
 		

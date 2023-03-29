@@ -31,7 +31,8 @@ public class AdminShopController {
 		log.debug("------ 매장등록 요청 ------");
 		log.debug("넘어온 shop 은? " + shop);
 		ServletContext context = session.getServletContext();
-		String savePath = context.getRealPath(context.getInitParameter("savePath"));
+		String saveDir = context.getInitParameter("savePath");
+		String savePath = context.getRealPath("") + saveDir;
 		
 		shopService.regist(shop, savePath);
 		
@@ -50,7 +51,8 @@ public class AdminShopController {
 		Message message = new Message();
 		if(shop.getImages() != null) { //수정해야하는 이미지가 있는 경우
 			ServletContext context = session.getServletContext();
-			String savePath = context.getRealPath(context.getInitParameter("savePath"));
+			String saveDir = context.getInitParameter("savePath");
+			String savePath = context.getRealPath("") + saveDir;
 			
 			shopService.editWithImage(shop, savePath);
 			message.setMsg("매장정보 및 이미지 수정 완료");

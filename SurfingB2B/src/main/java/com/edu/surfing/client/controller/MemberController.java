@@ -1,18 +1,18 @@
 package com.edu.surfing.client.controller;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edu.surfing.domain.business.BusinessMember;
 import com.edu.surfing.domain.member.Member;
 import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.exception.ErrorCode;
@@ -36,6 +36,7 @@ public class MemberController {
 
 		int authCode = joinService.sendEmail(email);
 		session.setAttribute("emailAuthCode", authCode);
+		log.debug("저장된 코드" + session.getAttribute("emailAuthCode"));
 
 		Message message = new Message();
 		message.setMsg("이메일 전송완료, 이메일을 확인 후 인증번호를 입력해주세요.");
@@ -47,9 +48,11 @@ public class MemberController {
 	}
 
 	@GetMapping("/join/email-auth/{emailCode}")
-	public ResponseEntity<Message> checkEmailCode(@PathVariable String emailCode, HttpSession session) throws CustomException {
+	public ResponseEntity<Message> checkEmailCode(@PathVariable String emailCode, HttpSession session)
+			throws CustomException {
 		log.debug("------ " + emailCode + " 인증번호 확인 요청 ------");
 
+		log.debug("세션의 상태" + session.getAttribute("emailAuthCode"));
 		int authCode = (Integer) session.getAttribute("emailAuthCode");
 		log.debug("세션에서 불러온 코드는? " + authCode);
 
@@ -61,7 +64,6 @@ public class MemberController {
 		} else {
 			throw new CustomException(ErrorCode.NOT_FOUND_AUTHCODE, "메일");
 		}
-
 		log.debug("------ 인증번호 확인 완료 ------");
 		return ResponseEntity.ok(message);
 	}
@@ -81,7 +83,8 @@ public class MemberController {
 	}
 
 	@GetMapping("/join/sms-auth/{smsCode}")
-	public ResponseEntity<Message> checkSmsCode(@PathVariable String smsCode, HttpSession session) throws CustomException {
+	public ResponseEntity<Message> checkSmsCode(@PathVariable String smsCode, HttpSession session)
+			throws CustomException {
 		log.debug("------ " + smsCode + " 인증번호 확인 요청 ------");
 
 		int authCode = (Integer) session.getAttribute("smsAuthCode");
@@ -114,9 +117,11 @@ public class MemberController {
 	}
 
 	@PostMapping("/join/member")
-	public ResponseEntity<Message> regist(Member member, HttpServletRequest request) {
+	public ResponseEntity<Message> regist(Member member, HttpSession session) {
 		log.debug("------ " + member.getMemberName() + "님 회원가입 요청 ------");
-		String savePath = (String) request.getSession().getServletContext().getAttribute("savePath");
+		ServletContext context = session.getServletContext();
+		String saveDir = context.getInitParameter("savePath");
+		String savePath = context.getRealPath("") + saveDir;
 
 		memberService.registMember(member, savePath);
 
@@ -124,6 +129,27 @@ public class MemberController {
 		message.setMsg("회원가입 성공");
 
 		log.debug("------ " + member.getMemberName() + "님 회원가입 성공 ------");
+		return ResponseEntity.ok(message);
+	}
+
+	@PostMapping("/token/member")
+	public ResponseEntity<Message> updateProfile(Member member, HttpServletRequest request) {
+		log.debug("------ 회원정보 수정 요청 ------");
+		ServletContext context = request.getSession().getServletContext();
+		String saveDir = context.getInitParameter("savePath");
+		String savePath = context.getRealPath("") + saveDir;
+
+		log.debug("수정할회원 :: " + member);
+		// 접속을 요청한 회원의 Idx를 부여
+		Member accessMember = (Member) request.getAttribute("member");
+		member.setMemberIdx(accessMember.getMemberIdx());
+		member.setProfileImage(accessMember.getProfileImage());
+		memberService.editMember(member, savePath);
+
+		Message message = new Message();
+		message.setMsg("회원정보가 수정되었습니다!");
+
+		log.debug("------ 회원정보 수정 성공 ------");
 		return ResponseEntity.ok(message);
 	}
 

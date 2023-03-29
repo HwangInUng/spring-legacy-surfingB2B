@@ -10,6 +10,6 @@ public interface MemberService {
 	public Member getMemberById(String memberId);
 	public String getMemberByLogin(Member member);
 	public void registMember(Member member, String savePath);
-	public void editMember(Member member);
+	public void editMember(Member member, String savePath);
 	public void removeMember(int memberIdx);
 }

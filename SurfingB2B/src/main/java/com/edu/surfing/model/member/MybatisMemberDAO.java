@@ -12,7 +12,9 @@ import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.exception.ErrorCode;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class MybatisMemberDAO implements MemberDAO {

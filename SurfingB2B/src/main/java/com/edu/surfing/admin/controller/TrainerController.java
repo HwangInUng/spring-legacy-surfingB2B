@@ -30,7 +30,8 @@ public class TrainerController {
 	public ResponseEntity<Message> regist(Trainer trainer, HttpSession session) {
 		log.debug("------ 강사등록 요청 ------");
 		ServletContext context = session.getServletContext();
-		String savePath = context.getRealPath("/resources/data/");
+		String saveDir = context.getInitParameter("savePath");
+		String savePath = context.getRealPath("") + saveDir;
 
 		trainerService.regist(trainer, savePath);
 		
@@ -51,7 +52,8 @@ public class TrainerController {
 	public ResponseEntity<Message> removeTrainer(@PathVariable int trainerIdx, HttpSession session){
 		log.debug("------ 강사 삭제 요청 ------");
 		ServletContext context = session.getServletContext();
-		String savePath = context.getRealPath(context.getInitParameter("savePath"));
+		String saveDir = context.getInitParameter("savePath");
+		String savePath = context.getRealPath("") + saveDir;
 		
 		trainerService.remove(trainerIdx, savePath);
 		

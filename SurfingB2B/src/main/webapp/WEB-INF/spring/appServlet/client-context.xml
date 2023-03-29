@@ -17,7 +17,7 @@
 			<mvc:exclude-mapping path="/login/**" />
 
 			<beans:bean id="jwtInterceptor"
-				class="com.edu.surfing.aop.JwtInterceptor" />
+				class="com.edu.surfing.interceptor.JwtInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 

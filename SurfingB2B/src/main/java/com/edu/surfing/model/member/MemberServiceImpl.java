@@ -3,8 +3,10 @@ package com.edu.surfing.model.member;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.surfing.domain.member.Member;
+import com.edu.surfing.domain.shop.ShopImage;
 import com.edu.surfing.exception.CustomException;
 import com.edu.surfing.exception.ErrorCode;
 import com.edu.surfing.model.oauth.JwtProvider;
@@ -66,8 +68,27 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void editMember(Member member) throws CustomException {
+	public void editMember(Member member, String savePath) throws CustomException {
+		if(member.getMemberPass() != null) {
+			String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
+			member.setMemberPass(memberPass);
+		}
+		
+		// 수정할 파일 조회
+		MultipartFile file = member.getImage();
+		log.debug("file 상태 :: " + file);
+		
+		// 파일이 있는 경우 파일삭제
+		if (file != null) {
+			if (fileManager.removeImage(member.getProfileImage(), savePath)) {
+				member.setProfileImage(fileManager.getSaveFileName(file, savePath));
+
+			}else {
+				throw new CustomException(ErrorCode.FAILED_FILE_ERROR);
+			}
+		}
 		memberDAO.update(member);
+
 	}
 
 	@Override

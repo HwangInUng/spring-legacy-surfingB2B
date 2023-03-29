@@ -77,7 +77,6 @@ public class FileManager {
 		} catch (Exception e) {
 			throw new CustomException(ErrorCode.INTERNAL_FILE_DELETE_ERROR);
 		}
-
 		return true;
 	}
 

@@ -208,7 +208,7 @@
 		<dependency>
 			<groupId>net.nurigo</groupId>
 			<artifactId>sdk</artifactId>
-			<version>4.2.9</version>
+			<version>4.2.7</version>
 		</dependency>
 		<!-- /.외부라이브러리 영역 -->
 	</dependencies>
@@ -247,30 +247,6 @@
 				<configuration>
 					<mainClass>org.test.Test</mainClass>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.2.0</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/classes/static</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/main/webapp/build</directory>
-									<filtering>false</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

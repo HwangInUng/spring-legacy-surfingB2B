@@ -31,7 +31,8 @@ public class MenuController {
 		log.debug("------ 상품 등록 요청 ------");
 		// 파일저장 경로 추출
 		ServletContext context = session.getServletContext();
-		String savePath = context.getRealPath("/resources/data/");
+		String saveDir = context.getInitParameter("savePath");
+		String savePath = context.getRealPath("") + saveDir;
 
 		menu.setShop(shop);
 		menuService.regist(menu, savePath);
@@ -53,7 +54,8 @@ public class MenuController {
 	public ResponseEntity<Message> removeMenu(@PathVariable int menuIdx, HttpSession session) {
 		log.debug("------ 메뉴 삭제 요청 ------");
 		ServletContext context = session.getServletContext();
-		String savePath = context.getRealPath(context.getInitParameter("savePath"));
+		String saveDir = context.getInitParameter("savePath");
+		String savePath = context.getRealPath("") + saveDir;
 		
 		menuService.remove(menuIdx, savePath);
 		
