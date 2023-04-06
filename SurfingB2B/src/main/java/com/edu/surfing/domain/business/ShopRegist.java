@@ -11,6 +11,7 @@ public class ShopRegist {
 	private String shopName;
 	private String shopArea;
 	private String shopTown;
+	private String memberName;
 	private String position;
 	private String shopCall;
 	private String shopTool; //사용중인 프로그램
