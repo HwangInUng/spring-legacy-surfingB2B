@@ -30,6 +30,11 @@ public class ShopServiceImpl implements ShopService {
 	public List getPopularShop() {
 		return shopDAO.selectPopular();
 	}
+	
+	@Override
+	public List getListBySpot(String shopTown) {
+		return shopDAO.selectBySpot(shopTown);
+	}
 
 	@Override
 	public Shop getDetail(int shopIdx) {

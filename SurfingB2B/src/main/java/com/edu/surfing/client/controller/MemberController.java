@@ -29,7 +29,8 @@ public class MemberController {
 
 	private final MemberService memberService; // 회원가입, 정보수정, 삭제 등의 서비스 지원
 	private final JoinService joinService; // 회원가입 시 인증절차 서비스 지원
-
+	
+	// 이메일 인증 요청
 	@GetMapping("/join/email/{email:.+}/")
 	public ResponseEntity<Message> sendAuthEmail(@PathVariable String email, HttpSession session) {
 		log.debug("------ " + email + " 이메일 인증 요청 ------");
@@ -46,7 +47,8 @@ public class MemberController {
 
 		return ResponseEntity.ok(message);
 	}
-
+	
+	// 이메일 인증번호 요청
 	@GetMapping("/join/email-auth/{emailCode}")
 	public ResponseEntity<Message> checkEmailCode(@PathVariable String emailCode, HttpSession session)
 			throws CustomException {
@@ -68,6 +70,7 @@ public class MemberController {
 		return ResponseEntity.ok(message);
 	}
 
+	// 문자 인증 요청
 	@GetMapping("/join/sms/{phoneNo}")
 	public ResponseEntity<Message> sendAuthSMS(@PathVariable String phoneNo, HttpSession session) {
 		log.debug("------ " + phoneNo + "로 인증문자 전송 요청 ------");
@@ -81,7 +84,8 @@ public class MemberController {
 		log.debug("------ " + phoneNo + "로 인증문자 전송 완료 ------");
 		return ResponseEntity.ok(message);
 	}
-
+	
+	// 문자 인증번호 인증
 	@GetMapping("/join/sms-auth/{smsCode}")
 	public ResponseEntity<Message> checkSmsCode(@PathVariable String smsCode, HttpSession session)
 			throws CustomException {
@@ -102,7 +106,8 @@ public class MemberController {
 		log.debug("------ 인증번호 확인 완료 ------");
 		return ResponseEntity.ok(message);
 	}
-
+	
+	// 아이디 중복체크
 	@GetMapping("/join/{memberId}")
 	public ResponseEntity<Message> checkMemberId(@PathVariable String memberId) {
 		log.debug("------ 아이디 중복체크 요청 ------");
@@ -115,7 +120,8 @@ public class MemberController {
 		log.debug("------ 아이디 중복체크 응답 ------");
 		return ResponseEntity.ok(message);
 	}
-
+	
+	// 일반회원 회원가입 요청
 	@PostMapping("/join/member")
 	public ResponseEntity<Message> regist(Member member, HttpSession session) {
 		log.debug("------ " + member.getMemberName() + "님 회원가입 요청 ------");
@@ -131,7 +137,8 @@ public class MemberController {
 		log.debug("------ " + member.getMemberName() + "님 회원가입 성공 ------");
 		return ResponseEntity.ok(message);
 	}
-
+	
+	// 회원 프로필 수정 요청
 	@PostMapping("/token/member")
 	public ResponseEntity<Message> updateProfile(Member member, HttpServletRequest request) {
 		log.debug("------ 회원정보 수정 요청 ------");
@@ -152,7 +159,8 @@ public class MemberController {
 		log.debug("------ 회원정보 수정 성공 ------");
 		return ResponseEntity.ok(message);
 	}
-
+	
+	// 마이페이지 접속 요청
 	@GetMapping("/token/mypage")
 	public ResponseEntity<Member> accessMyPage(HttpServletRequest request) {
 		log.debug("----- Mypage 접속 요청 ------");

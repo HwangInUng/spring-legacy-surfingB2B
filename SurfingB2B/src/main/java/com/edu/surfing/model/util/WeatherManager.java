@@ -8,16 +8,15 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.edu.surfing.domain.main.Weather;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
 public class WeatherManager {
-	private Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	// 단기예보 반환 메소드
 	public List getVilageFcst(String result) {
 		// API 반환결과에서 필요데이터 추출
@@ -26,7 +25,7 @@ public class WeatherManager {
 		JSONObject body = response.getJSONObject("body");
 		JSONObject items = body.getJSONObject("items");
 		JSONArray itemList = items.getJSONArray("item");
-		
+
 		// 조건에 해당하는 item을 담을 새로운 배열 생성
 		JSONArray selectList = new JSONArray();
 		for (int i = 0; i < itemList.length(); i++) {
@@ -34,58 +33,84 @@ public class WeatherManager {
 			JSONObject item = itemList.getJSONObject(i);
 			// 당일 오전 08시 기준으로 조건 분석을 위해 변수로 추출
 			String fcstTime = item.getString("fcstTime");
-			// 카테고리별 데이터 추출
-			String category = item.getString("category");
 
-			if (fcstTime.equals("0800")) {
-				switch (category) {
-				case "SKY":
-					selectList.put(item);
-					break;
-				case "PTY":
-					selectList.put(item);
-					break;
-				case "TMP":
-					selectList.put(item);
-					break;
-				case "WAV":
-					selectList.put(item);
-					break;
-				case "VEC":
-					selectList.put(item);
-					break;
-				case "WSD":
-					selectList.put(item);
-					break;
-				}
+			if (getCurrentTime(fcstTime)) {
+				putItemToList(item, selectList);
 			}
 		}
-		//단기예보(3일)에 대한 날씨 DTO 생성
+		return getWeatherList(selectList);
+	}
+	
+	//현재시간 판단
+	public boolean getCurrentTime(String fcstTime) {
+		String currentTime = Integer.toString(LocalDateTime.now().getHour());
+		
+		if(currentTime.length() == 1) {
+			// 시간이 한자리 수 일 경우 앞에 0을 붙여 "0200"의 형태로 작성
+			currentTime = "0" + currentTime + "00";
+		} else {
+			currentTime = currentTime + "00";
+		}
+		//String형으로 비교 시 정상적 비교 제한으로 인해 int형으로 비교수행
+		boolean result = (Integer.parseInt(fcstTime) == Integer.parseInt(currentTime) ? true : false);
+		
+		return result;
+	}
+
+	// 지정된 카테고리 추출 후 새로운 배열에 추가
+	public void putItemToList(JSONObject item, JSONArray selectList) {
+		String category = item.getString("category");
+		
+		switch (category) {
+		case "SKY":
+			selectList.put(item);
+			break;
+		case "PTY":
+			selectList.put(item);
+			break;
+		case "TMP":
+			selectList.put(item);
+			break;
+		case "WAV":
+			selectList.put(item);
+			break;
+		case "VEC":
+			selectList.put(item);
+			break;
+		case "WSD":
+			selectList.put(item);
+			break;
+		}
+	}
+
+	// 가공된 단기예보(3일) 객체가 담긴 리스트 반환
+	public List getWeatherList(JSONArray selectList) {
+		// 단기예보(3일)에 대한 날씨 DTO 생성
 		Weather today = new Weather();
 		Weather tomorrow = new Weather();
 		Weather dayAfter = new Weather();
 		Calendar calendar = Calendar.getInstance();
 		LocalDateTime now = LocalDateTime.now();
-		
-		for(int i = 0; i < selectList.length(); i++) {
+
+		for (int i = 0; i < selectList.length(); i++) {
 			JSONObject item = selectList.getJSONObject(i);
-			
+
 			String fcstDate = item.getString("fcstDate");
-			//1~3일 간의 데이터를 추출하기 위해 조건을 통한 분리
-			if(fcstDate.equals(now.format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
+			// 1~3일 간의 데이터를 추출하기 위해 조건을 통한 분리
+			if (fcstDate.equals(now.format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
 				putCategoryValue(today, item);
 				today.setDay(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK)));
 				today.setDayNo(1);
-			} else if(fcstDate.equals(now.plusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
+			} else if (fcstDate.equals(now.plusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
 				putCategoryValue(tomorrow, item);
 				tomorrow.setDayNo(2);
-			} else if(fcstDate.equals(now.plusDays(2).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
+			} else if (fcstDate.equals(now.plusDays(2).format(DateTimeFormatter.ofPattern("yyyyMMdd")))) {
 				putCategoryValue(dayAfter, item);
 				dayAfter.setDayNo(3);
 			}
 		}
 		List<Weather> weatherList = new ArrayList();
-		
+
 		weatherList.add(today);
 		weatherList.add(tomorrow);
 		weatherList.add(dayAfter);
@@ -93,36 +118,30 @@ public class WeatherManager {
 		return weatherList;
 	}
 
-	public Weather putCategoryValue(Weather weather, JSONObject item) {
+	// 날씨 객체별 데이터 매핑
+	public void putCategoryValue(Weather weather, JSONObject item) {
 		String category = item.getString("category");
 		String fcstValue = item.getString("fcstValue");
 
 		switch (category) {
 		case "SKY":
 			weather.setSky(fcstValue);
-			;
 			break;
 		case "PTY":
 			weather.setPty(fcstValue);
-			;
 			break;
 		case "TMP":
 			weather.setTmp(fcstValue);
-			;
 			break;
 		case "WAV":
 			weather.setWav(fcstValue);
-			;
 			break;
 		case "VEC":
 			weather.setVec(fcstValue);
-			;
 			break;
 		case "WSD":
 			weather.setWsd(fcstValue);
-			;
 			break;
 		}
-		return weather;
 	}
 }

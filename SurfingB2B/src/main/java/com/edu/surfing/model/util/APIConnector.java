@@ -15,9 +15,11 @@ import org.springframework.stereotype.Component;
 
 import com.edu.surfing.domain.main.SurfingSpot;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class APIConnector {
-	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	//날씨 정보 획득 메소드
 	public String getWeatherDate(URL url) throws IOException {

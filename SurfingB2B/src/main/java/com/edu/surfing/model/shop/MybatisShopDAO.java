@@ -25,6 +25,11 @@ public class MybatisShopDAO implements ShopDAO{
 	public List<Shop> selectPopular() {
 		return sqlSessionTemplate.selectList("Shop.selectPopular");
 	}
+	
+	@Override
+	public List<Shop> selectBySpot(String shopTown) {
+		return sqlSessionTemplate.selectList("Shop.selectBySpot", shopTown);
+	}
 
 	@Override
 	public Shop selectByIdx(int shopIdx) {

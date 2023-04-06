@@ -30,4 +30,11 @@ public class ClientShopController {
 		log.debug("------ " + shopIdx + "번 샵 정보 요청 ------");
 		return ResponseEntity.ok(shopService.getDetail(shopIdx));
 	}
+	
+	@GetMapping("/shops/{shopTown}")
+	public ResponseEntity<List> getShopListBySpot(@PathVariable String shopTown){
+		log.debug("------ " + shopTown + "에 위치한 샵 목록 요청 ------");
+		return ResponseEntity.ok(shopService.getListBySpot(shopTown));
+	}
+	
 }

@@ -34,6 +34,11 @@
 		select * from shop order by shop_idx desc; 
 	</select>
 	
+	<!-- 지역에 해당하는 샵 정보 쿼리문 -->
+	<select id="selectBySpot" resultType="Shop" parameterType="String">
+		select * from shop where shop_town like CONCAT('%', #{shopTown}, '%')
+	</select>
+	
 	<!-- 상세보기 요청 쿼리문 -->
 	<select id="selectByIdx" parameterType="int" resultMap="shopMap">
 		select * from shop where shop_idx=#{shopIdx}

@@ -32,13 +32,11 @@ public class MybatisReservationDAO implements ReservationDAO{
 	}
 
 	@Override
-	public Reservation insert(Reservation reservation) throws CustomException {
+	public void insert(Reservation reservation) throws CustomException {
 		int result = sqlSessionTemplate.insert("Reservation.insert", reservation);
 		if(result < 1) {
 			throw new CustomException(ErrorCode.FAILED_REGIST, "예약");
 		}
-		//Idx가 부여된 예약객체 반환
-		return reservation;
 	}
 
 	@Override

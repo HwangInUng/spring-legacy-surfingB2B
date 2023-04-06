@@ -38,7 +38,8 @@ public class MemberServiceImpl implements MemberService {
 	public Member getMemberById(String memberId) throws CustomException {
 		return memberDAO.selectById(memberId);
 	}
-
+	
+	// 로그인 체크
 	@Override
 	public String getMemberByLogin(Member member) throws CustomException {
 		// 로그인 비밀번호 암호화
@@ -51,7 +52,8 @@ public class MemberServiceImpl implements MemberService {
 
 		return jwtProvider.createToken(loginMember);
 	}
-
+	
+	// 회원 등록
 	@Override
 	public void registMember(Member member, String savePath) throws CustomException {
 		// 비밀번호 암호화
@@ -66,31 +68,31 @@ public class MemberServiceImpl implements MemberService {
 
 		memberDAO.insert(member);
 	}
-
+	
+	// 회원 프로필 수정
 	@Override
 	public void editMember(Member member, String savePath) throws CustomException {
-		if(member.getMemberPass() != null) {
+		// 변결할 비밀번호가 있는 경우에만 암호화 진행
+		if (member.getMemberPass() != null) {
 			String memberPass = PasswordConverter.getCovertedPassword(member.getMemberPass());
 			member.setMemberPass(memberPass);
 		}
-		
+
 		// 수정할 파일 조회
 		MultipartFile file = member.getImage();
 		log.debug("file 상태 :: " + file);
-		
+
 		// 파일이 있는 경우 파일삭제
 		if (file != null) {
 			if (fileManager.removeImage(member.getProfileImage(), savePath)) {
 				member.setProfileImage(fileManager.getSaveFileName(file, savePath));
-
-			}else {
+			} else {
 				throw new CustomException(ErrorCode.FAILED_FILE_ERROR);
 			}
 		}
 		memberDAO.update(member);
-
 	}
-
+	
 	@Override
 	public void removeMember(int memberIdx) throws CustomException {
 		memberDAO.delete(memberIdx);
